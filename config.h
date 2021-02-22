@@ -9,7 +9,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int usealtbar          = 1;        /* 1 means use non-dwm status bar */
 static const char *altbarclass      = "Polybar"; /* Alternate bar class name */
 static const char *altbarcmd        = "$HOME/bar.sh"; /* Alternate bar launch command */ //TODO
-static const char *fonts[]          = { "monospace:size=10" };
+static const char *fonts[] = { "SourceCodePro:size=10", "JoyPixels:pixelsize=10:antialias=true:autohint=true" }; //fonts are ttf-joypixels and adobe-source-code-pro-fonts both in AUR
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
