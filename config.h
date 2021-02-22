@@ -7,8 +7,8 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int usealtbar          = 1;        /* 1 means use non-dwm status bar */
-static const char *altbarclass      = "Polybar"; /* Alternate bar class name */
-static const char *altbarcmd        = "$HOME/bar.sh"; /* Alternate bar launch command */ //TODO
+static const char *altbarclass      = "Bar"; /* Alternate bar class name */
+static const char *altbarcmd        = "$dotfiles/lemonbar/bar.sh"; /* Alternate bar launch command */ //TODO
 static const char *fonts[] = { "SourceCodePro:size=10", "JoyPixels:pixelsize=10:antialias=true:autohint=true" }; //fonts are ttf-joypixels and adobe-source-code-pro-fonts both in AUR
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -34,7 +34,8 @@ static const Rule rules[] = {
 	{ "Gimp",    NULL,     NULL,           0,         1,          0,           0,        -1 },
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,           0,        -1 },
-	{ NULL,      NULL,     "Event Tester", 0,         0,          0,           1,        -1 }, /* xev */
+	{ NULL,      NULL,     "Event Tester", 0,         0,          0,          -1,        -1 }, /* xev */
+	{ "null",    NULL,     "bevy",	   0,         0,          0,          -1,        -1 }, /* bevy game */
 };
 
 /* layout(s) */
@@ -70,7 +71,7 @@ static Key keys[] = {
 //  { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 //  { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 //  { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-    { MODKEY|ShiftMask,             XK_c,      quit,           {0} },
+//  { MODKEY|ShiftMask,             XK_c,      quit,           {0} },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -83,8 +84,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
+	{ MODKEY,						XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
