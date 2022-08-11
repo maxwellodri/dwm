@@ -1711,7 +1711,7 @@ setup(void)
 		scheme[i] = drw_scm_create(drw, colors[i], 3);
 	tagscheme = ecalloc(LENGTH(tagsel), sizeof(Clr *));
 	for (i = 0; i < LENGTH(tagsel); i++)
-		tagscheme[i] = drw_scm_create(drw, tagsel[i], tagalpha, 2);
+		tagscheme[i] = drw_scm_create(drw, tagsel[i], 2); //tagalpha here?
 	/* init bars */
 	updatebars();
 	updatestatus();

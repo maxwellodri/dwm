@@ -9,7 +9,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int usealtbar          = 0;        /* 1 means use non-dwm status bar */
 static const char *altbarclass      = "Bar"; /* Alternate bar class name */
 static const char *altbarcmd        = "$dotfiles/lemonbar/bar.sh"; /* Alternate bar launch command */ //TODO
-static const char *fonts[] = { "SourceCodePro:size=10", "JoyPixels:pixelsize=10:antialias=true:autohint=true" }; //fonts are ttf-joypixels and adobe-source-code-pro-fonts both in AUR
+static const char *fonts[] = { "FiraCode Nerd Font Mono", "Noto Color Emoji", "Twemoji" }; //fonts are ttf-joypixels, ttf-twemoji, and nerd-fonts-fira-code
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -25,6 +25,20 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
+static const char *tagsel[][2] = {
+	{ "#ffffff", "#0000ff" }, //Dark Blue
+	{ "#ffffff", "#ff7f00" }, //Orange
+	{ "#000000", "#00ff00" }, //Green
+	{ "#000000", "#ffff00" }, //Yellow
+	{ "#ffffff", "#9400d3" }, //Light Purple
+	{ "#ffffff", "#ff0000" }, //Red
+	{ "#ffffff", "#4b0082" }, //Purple
+	{ "#000000", "#ffffff" }, //White
+	{ "#ffffff", "#000000" }, //Black
+};
+
+static const unsigned int tagalpha[] = { 1, 1 };
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
@@ -35,13 +49,13 @@ static const Rule rules[] = {
 	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,       -1 },
 	{ "St",      NULL,     NULL,           0,         0,          1,          0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,          -1,       -1 }, /* xev */
-	{ "Steam",   NULL,     "Steam",		   1 << 2,    0,          0,          1,        0 }, /* steam */
+	{ "Steam",   NULL,     "Steam",		   1 << 1,    0,          0,          1,        1  }, /* steam */
     { "Blender", NULL,     "Blender Preferences", 0,  0,          1,          0,        -1 }, /* blender */
 	{ "Blender", NULL,     "Blender",	   0,         0,          1,          0,        -1 }, /* blender */
-	{ "game",    NULL,     "bevy",		   0,         0,          0,          1,        -1 }, /* bevy game */
-	{ "bevy",    NULL,     "bevy",		   0,         0,          0,          1,        -1 }, /* bevy game */
-	{ "discord", NULL,,		NULL,          1,         0,          0,          0,        0 }, 
-	{ "signal", NULL,,		NULL,          1,         0,          0,          0,        0 }, 
+	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0 }, /* bevy game */
+	{ "bevy",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
+	{ "discord", NULL,		"Discord",     1 << 0,    0,          0,          0,        1  }, 
+	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,        1  }, 
 };
 
 /* layout(s) */
