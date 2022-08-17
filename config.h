@@ -52,10 +52,11 @@ static const Rule rules[] = {
 	{ "Steam",   NULL,     "Steam",		   1 << 1,    0,          0,          1,        1  }, /* steam */
     { "Blender", NULL,     "Blender Preferences", 0,  0,          1,          0,        -1 }, /* blender */
 	{ "Blender", NULL,     "Blender",	   0,         0,          1,          0,        -1 }, /* blender */
-	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0 }, /* bevy game */
+	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
 	{ "bevy",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
 	{ "discord", NULL,		"Discord",     1 << 0,    0,          0,          0,        1  }, 
 	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,        1  }, 
+	{ "dota2",  "dota2",   NULL,           0,         0,          0,          0,        0  }, 
 };
 
 /* layout(s) */
