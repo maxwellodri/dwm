@@ -34,7 +34,7 @@ static const char *tagsel[][2] = {
 	{ "#ffffff", "#ff0000" }, //Red
 	{ "#ffffff", "#4b0082" }, //Purple
 	{ "#000000", "#ffffff" }, //White
-	{ "#ffffff", "#000000" }, //Black
+	{ "#ffffff", "#28cbd6" }, //Cyan
 };
 
 static const unsigned int tagalpha[] = { 1, 1 };
@@ -50,13 +50,12 @@ static const Rule rules[] = {
 	{ "St",      NULL,     NULL,           0,         0,          1,          0,        -1 },
 	{ NULL,      NULL,     "Event Tester", 0,         0,          0,          -1,       -1 }, /* xev */
 	{ "Steam",   NULL,     "Steam",		   1 << 1,    0,          0,          1,        1  }, /* steam */
-    { "Blender", NULL,     "Blender Preferences", 0,  0,          1,          0,        -1 }, /* blender */
-	{ "Blender", NULL,     "Blender",	   0,         0,          1,          0,        -1 }, /* blender */
 	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
 	{ "bevy",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
-	{ "discord", NULL,		"Discord",     1 << 0,    0,          0,          0,        1  }, 
+	{ "bevy",    NULL,     "app",		   1 << 0,    0,          0,          1,        0 }, /* bevy game */
+	{ "discord", NULL,		"Discord",     1 << 2,    0,          0,          0,        1  }, 
 	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,        1  }, 
-	{ "dota2",  "dota2",   NULL,           0,         0,          0,          0,        0  }, 
+	{ "dota2",  "dota2",   NULL,           0,         0,          0,          0,        -1  },  //0 = main monitor,  1 = side vertical monitor
 };
 
 /* layout(s) */
@@ -69,6 +68,8 @@ static const Layout layouts[] = {
 	{ "[T]",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+	{ "[S]",      bstack },
+	{ "[U]",      bstackhoriz },
 };
 
 /* key definitions */
@@ -105,6 +106,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_g,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY|ShiftMask,             XK_space,  setlayout,      {0} },
 	{ MODKEY,						XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
