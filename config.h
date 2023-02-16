@@ -7,8 +7,9 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const int usealtbar          = 0;        /* 1 means use non-dwm status bar */
-static const char *altbarclass      = "Bar"; /* Alternate bar class name */
-static const char *altbarcmd        = "$dotfiles/lemonbar/bar.sh"; /* Alternate bar launch command */ //TODO
+static const char *altbarclass      = "eww-bar"; /* Alternate bar class name */
+static const char *altbarcmd        = "eww open bar"; /* Alternate bar launch command */ //TODO
+static const char *alttrayname      = "Eww - tray";    /* Polybar tray instance name */
 static const char *fonts[] = { "FiraCode Nerd Font Mono", "Noto Color Emoji", "Twemoji" }; //fonts are ttf-joypixels, ttf-twemoji, and nerd-fonts-fira-code
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#222222";
@@ -56,6 +57,7 @@ static const Rule rules[] = {
 	{ "discord", NULL,		"Discord",     1 << 2,    0,          0,          0,        1  }, 
 	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,        1  }, 
 	{ "dota2",  "dota2",   NULL,           0,         0,          0,          0,        -1  },  //0 = main monitor,  1 = side vertical monitor
+	//{ NULL,     NULL,   "Eww - bar",           0,         0,          0,          0,        0  },  //0 = main monitor,  1 = side vertical monitor
 };
 
 /* layout(s) */
