@@ -31,12 +31,12 @@ static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const char *tagsel[][2] = {
 	{ "#ffffff", "#0000ff" }, //Dark Blue
 	{ "#ffffff", "#ff7f00" }, //Orange
-	{ "#000000", "#00ff00" }, //Green
-	{ "#000000", "#ffff00" }, //Yellow
+	{ "#ffffff", "#00ff00" }, //Green
+	{ "#ffffff", "#ffff00" }, //Yellow
 	{ "#ffffff", "#9400d3" }, //Light Purple
 	{ "#ffffff", "#ff0000" }, //Red
 	{ "#ffffff", "#4b0082" }, //Purple
-	{ "#000000", "#ffffff" }, //White
+	{ "#ffffff", "#ffffff" }, //White
 	{ "#ffffff", "#28cbd6" }, //Cyan
 };
 
