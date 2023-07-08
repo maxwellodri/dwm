@@ -1,0 +1,15 @@
+diff --git a/dwm.c b/dwm.c
+index 380a2eb..d4c9083 100644
+--- a/dwm.c
++++ b/dwm.c
+@@ -1537,8 +1537,8 @@ restack(Monitor *m)
+ 				wc.sibling = c->win;
+ 			}
+ 	}
+-	if (m == selmon && (m->tagset[m->seltags] & m->sel->tags) && m->lt[m->sellt]->arrange != &monocle)
+-		warp(m->sel);
++    //if (m == selmon && (m->tagset[m->seltags] & m->sel->tags) && m->lt[m->sellt]->arrange != &monocle)
++    //warp(m->sel);
+ 	XSync(dpy, False);
+ 	while (XCheckMaskEvent(dpy, EnterWindowMask, &ev));
+ }
