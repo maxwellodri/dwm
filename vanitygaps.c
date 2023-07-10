@@ -1,5 +1,10 @@
+#ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wunused-function"
+#endif
+
+#ifdef __clang__
 #pragma clang diagnostic ignored "-Wunused-function"
+#endif
 
 /* Key binding functions */
 static void defaultgaps(const Arg *arg);

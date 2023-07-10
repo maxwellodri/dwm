@@ -89,9 +89,9 @@ static const PerMon lpm[] = {
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[M]",      monocle },
-	{ "[G]",      nrowgrid },
 	{ "[T]",      tile },    /* first entry is default */
+	{ "[G]",      nrowgrid },
+	{ "[M]",      monocle },
 	{ "[S]",      bstack },
 	{ "[U]",      bstackhoriz },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
@@ -144,6 +144,24 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
     { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
     { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+
+	{ MODKEY|ControlMask,              XK_u,      incrgaps,       {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_i,      incrigaps,      {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_o,      incrogaps,      {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_6,      incrihgaps,     {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_7,      incrivgaps,     {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_8,      incrohgaps,     {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_9,      incrovgaps,     {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+	{ MODKEY|ControlMask,              XK_0,      togglegaps,     {0} },
+
+	{ MODKEY|ControlMask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
