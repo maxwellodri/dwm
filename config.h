@@ -67,6 +67,17 @@ static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] 
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
+
+typedef struct {
+    int layout;
+    int nmaster;
+} PerMon;
+static const PerMon lpm[] = {
+    { .layout = 0, .nmaster = 1 },
+    { .layout = 1, .nmaster = 2 },
+    // add as many as you need
+};
+
 #define FORCE_VSPLIT 1
 #include "nrowgrid.c"
 
