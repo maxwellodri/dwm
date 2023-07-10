@@ -29,15 +29,15 @@ static const char *colors[][3]      = {
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
 static const char *tagsel[][2] = {
-	{ "#ffffff", "#0000ff" }, //Dark Blue
-	{ "#ffffff", "#ff7f00" }, //Orange
-	{ "#ffffff", "#00ff00" }, //Green
-	{ "#ffffff", "#ffff00" }, //Yellow
-	{ "#ffffff", "#9400d3" }, //Light Purple
-	{ "#ffffff", "#ff0000" }, //Red
-	{ "#ffffff", "#4b0082" }, //Purple
-	{ "#ffffff", "#ffffff" }, //White
-	{ "#ffffff", "#28cbd6" }, //Cyan
+	{ "#000000", "#1462EA" }, //Bright Blue
+	{ "#000000", "#E2781C" }, //Tangelo Orange
+	{ "#000000", "#11ff11" }, //Green
+	{ "#000000", "#ffff00" }, //Yellow
+	{ "#000000", "#9547B7" }, //Purpurus
+	{ "#000000", "#C66363" }, //Light Red
+	{ "#000000", "#FF69B4" }, //Hot pink
+	{ "#000000", "#ffffff" }, //White
+	{ "#000000", "#00EDFF" }, //Cyan
 };
 
 static const unsigned int tagalpha[] = { 1, 1 };
