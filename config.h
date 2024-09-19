@@ -51,18 +51,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent monitor */
-	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,               -1 },
-	{ "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,               -1 },
-    { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,                -1 },
-	{ "St",      NULL,      NULL,           0,          0,          1,          0,         0,               -1 },
-	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,               -1 }, /* xev */
-	{ "game",    NULL,      "bevy",		    1 << 0,     0,          0,          1,         0,               0  }, /* bevy game */
-	{ "bevy",    NULL,      "bevy",		    1 << 0,     0,          0,          1,         0,               0  }, /* bevy game */
-	{ "bevy",    NULL,      "app",		    1 << 0,     0,          0,          1,         0,               0 }, /* bevy game */
-	{ "discord", NULL,	    "Discord",      1 << 2,     0,          0,          0,         0,               1  }, 
-	{ "Steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         0,               1  }, /* steam */
-	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,               1  }, 
+	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent attachdirection,monitor */
+	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,         -1,           -1 },
+	{ "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,         +1,           -1 },
+    { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,           -1 },
+	{ "St",      NULL,      NULL,           0,          0,          1,          0,         0,         -1,           -1 },
+	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,           -1 }, /* xev */
+	{ "game",    NULL,      "bevy",		    1 << 0,     0,          0,          1,         0,         -1,           +0  }, /* bevy game */
+	{ "bevy",    NULL,      "bevy",		    1 << 0,     0,          0,          1,         0,         -1,           +0  }, /* bevy game */
+	{ "bevy",    NULL,      "app",		    1 << 0,     0,          0,          1,         0,         -1,           +0 }, /* bevy game */
+	{ "discord", NULL,	    "Discord",      1 << 2,     0,          0,          0,         0,         -1,           +1  }, 
+	{ "Steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         0,         -1,           +1  }, /* steam */
+	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,           +1  }, 
 };
 
 /* layout(s) */
@@ -73,6 +73,7 @@ static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen win
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+#include "attach.c"
 #define PERTAG_PATCH
 
 static const Layout layouts[] = {
@@ -124,8 +125,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_p,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	//{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
-	//{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
+	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	//{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_i,      incrgaps,       {.i = +1 } },
