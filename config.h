@@ -27,17 +27,15 @@ static const char *colors[][3]      = {
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-int warp_enabled = 1;
+static int warp_enabled = 1;
 void view_click(const Arg* arg) { //disable warp on clicks
     warp_enabled = 0;
     view(arg);
     warp_enabled = 1;
 }
-
-void warp_safe_killclient(const Arg* arg) {
+void nowarpkillclient(const Arg* arg) {
     warp_enabled = 0;
     killclient(arg);
-    warp_enabled = 1;
 }
 
 static const char *tagsel[][2] = {
@@ -152,7 +150,7 @@ static const Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_0,      togglegaps,     {0} },
 	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	//{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_x,      warp_safe_killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_x,      nowarpkillclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, //tile
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} }, //monocle
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[2]} }, //spiral

@@ -194,6 +194,7 @@ static void focusin(XEvent *e);
 static void focusmon(const Arg *arg);
 static void focusstack(const Arg *arg);
 static Atom getatomprop(Client *c, Atom prop);
+static Client *getclientundermouse(void);
 static int getrootptr(int *x, int *y);
 static long getstate(Window w);
 static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
@@ -1059,6 +1060,31 @@ getatomprop(Client *c, Atom prop)
 		XFree(p);
 	}
 	return atom;
+}
+
+Client *
+getclientundermouse(void)
+{
+	int ret, di;
+	unsigned int dui;
+	Window child, dummy;
+
+	ret = XQueryPointer(dpy, root, &dummy, &child, &di, &di, &di, &di, &dui);
+	if (!ret)
+		return NULL;
+
+	Client *c = wintoclient(child);
+    if (c) {
+        char client_debug[4096];
+        snprintf(client_debug, sizeof(client_debug), "Client found: %s | Pos: %d,%d,%d,%d", 
+                 c->name, c->x, c->y, c->w, c->h);
+        char client_cmd[4096];
+        snprintf(client_cmd, sizeof(client_cmd), "notify-send 'Found Client' '%s'", client_debug);
+        system(client_cmd);
+    } else {
+        system("notify-send 'Client Info' 'No client found under mouse'");
+    }
+    return c;
 }
 
 int
@@ -2017,6 +2043,11 @@ unmanage(Client *c, int destroyed)
 {
 	Monitor *m = c->mon;
 	XWindowChanges wc;
+    int pointer_x, pointer_y;
+    Window dummy;
+    int di;
+    unsigned int dui;
+    XQueryPointer(dpy, root, &dummy, &dummy, &pointer_x, &pointer_y, &di, &di, &dui);
 
 	if (c->swallowing) {
 		unswallow(c);
@@ -2053,6 +2084,12 @@ unmanage(Client *c, int destroyed)
 		focus(NULL);
 		updateclientlist();
 	}
+        if (warp_enabled == 0) {
+            warp_enabled = 1;
+            XWarpPointer(dpy, None, root, 0, 0, 0, 0, pointer_x, pointer_y);
+            Client *focused_client = getclientundermouse();
+		    focus(focused_client);
+        }
 }
 
 void
