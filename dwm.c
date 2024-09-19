@@ -99,7 +99,7 @@ struct Client {
 	int basew, baseh, incw, inch, maxw, maxh, minw, minh, hintsvalid;
 	int bw, oldbw;
 	unsigned int tags;
-	int isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow;
+	int isfixed, ispermanent, isfloating, isurgent, neverfocus, oldstate, isfullscreen, isterminal, noswallow;
 	pid_t pid;
 	Client *next;
 	Client *snext;
@@ -155,6 +155,7 @@ typedef struct {
 	int isfloating;
 	int isterminal;
 	int noswallow;
+    int ispermanent;
 	int monitor;
 } Rule;
 
@@ -338,6 +339,7 @@ applyrules(Client *c)
 			c->isterminal = r->isterminal;
 			c->noswallow  = r->noswallow;
 			c->isfloating = r->isfloating;
+			c->ispermanent = r->ispermanent;
 			c->tags |= r->tags;
 			for (m = mons; m && m->num != r->monitor; m = m->next);
 			if (m)
@@ -1140,7 +1142,7 @@ keypress(XEvent *e)
 void
 killclient(const Arg *arg)
 {
-	if (!selmon->sel)
+	if(!selmon->sel || selmon->sel->ispermanent > 0)
 		return;
 	if (!sendevent(selmon->sel, wmatom[WMDelete])) {
 		XGrabServer(dpy);

@@ -51,18 +51,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  monitor */
-	{ "Gimp",    NULL,     NULL,           0,         1,          0,          0,        -1 },
-	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,       -1 },
-    { "nvide_daemon", NULL,     NULL,           0,         0,          1,          -1,        -1 },
-	{ "St",      NULL,     NULL,           0,         0,          1,          0,        -1 },
-	{ NULL,      NULL,     "Event Tester", 0,         0,          0,          -1,       -1 }, /* xev */
-	{ "Steam",   NULL,     "Steam",		   1 << 1,    0,          0,          1,        1  }, /* steam */
-	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
-	{ "bevy",    NULL,     "bevy",		   1 << 0,    0,          0,          1,        0  }, /* bevy game */
-	{ "bevy",    NULL,     "app",		   1 << 0,    0,          0,          1,        0 }, /* bevy game */
-	{ "discord", NULL,		"Discord",     1 << 2,    0,          0,          0,        1  }, 
-	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,        1  }, 
+	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  ispermanent monitor */
+	{ "Gimp",    NULL,     NULL,           0,         1,          0,          0,         0,               -1 },
+	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        1,               -1 },
+    { "nvide_daemon", NULL,NULL,           0,         0,          1,          -1,        0,                -1 },
+	{ "St",      NULL,     NULL,           0,         0,          1,          0,         0,               -1 },
+	{ NULL,      NULL,     "Event Tester", 0,         0,          0,          -1,        0,               -1 }, /* xev */
+	{ "Steam",   NULL,     "Steam",		   1 << 1,    0,          0,          1,         0,               1  }, /* steam */
+	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,         0,               0  }, /* bevy game */
+	{ "bevy",    NULL,     "bevy",		   1 << 0,    0,          0,          1,         0,               0  }, /* bevy game */
+	{ "bevy",    NULL,     "app",		   1 << 0,    0,          0,          1,         0,               0 }, /* bevy game */
+	{ "discord", NULL,		"Discord",     1 << 2,    0,          0,          0,         0,               1  }, 
+	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,         0,               1  }, 
 	//{ "dota2",  "dota2",   NULL,           0,         0,          0,          0,        -1  },  //0 = main monitor,  1 = side vertical monitor
 	//{ NULL,     NULL,   "Eww - bar",           0,         0,          0,          0,        0  },  //0 = main monitor,  1 = side vertical monitor
 };
