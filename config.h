@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
@@ -51,20 +51,18 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class     instance  title           tags mask  isfloating  isterminal  noswallow  ispermanent monitor */
-	{ "Gimp",    NULL,     NULL,           0,         1,          0,          0,         0,               -1 },
-	{ "Firefox", NULL,     NULL,           1 << 8,    0,          0,          -1,        1,               -1 },
-    { "nvide_daemon", NULL,NULL,           0,         0,          1,          -1,        0,                -1 },
-	{ "St",      NULL,     NULL,           0,         0,          1,          0,         0,               -1 },
-	{ NULL,      NULL,     "Event Tester", 0,         0,          0,          -1,        0,               -1 }, /* xev */
-	{ "Steam",   NULL,     "Steam",		   1 << 1,    0,          0,          1,         0,               1  }, /* steam */
-	{ "game",    NULL,     "bevy",		   1 << 0,    0,          0,          1,         0,               0  }, /* bevy game */
-	{ "bevy",    NULL,     "bevy",		   1 << 0,    0,          0,          1,         0,               0  }, /* bevy game */
-	{ "bevy",    NULL,     "app",		   1 << 0,    0,          0,          1,         0,               0 }, /* bevy game */
-	{ "discord", NULL,		"Discord",     1 << 2,    0,          0,          0,         0,               1  }, 
-	{ "signal", "signal",		"Signal",  1 << 0,    0,          0,          0,         0,               1  }, 
-	//{ "dota2",  "dota2",   NULL,           0,         0,          0,          0,        -1  },  //0 = main monitor,  1 = side vertical monitor
-	//{ NULL,     NULL,   "Eww - bar",           0,         0,          0,          0,        0  },  //0 = main monitor,  1 = side vertical monitor
+	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent monitor */
+	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,               -1 },
+	{ "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,               -1 },
+    { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,                -1 },
+	{ "St",      NULL,      NULL,           0,          0,          1,          0,         0,               -1 },
+	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,               -1 }, /* xev */
+	{ "game",    NULL,      "bevy",		    1 << 0,     0,          0,          1,         0,               0  }, /* bevy game */
+	{ "bevy",    NULL,      "bevy",		    1 << 0,     0,          0,          1,         0,               0  }, /* bevy game */
+	{ "bevy",    NULL,      "app",		    1 << 0,     0,          0,          1,         0,               0 }, /* bevy game */
+	{ "discord", NULL,	    "Discord",      1 << 2,     0,          0,          0,         0,               1  }, 
+	{ "Steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         0,               1  }, /* steam */
+	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,               1  }, 
 };
 
 /* layout(s) */
