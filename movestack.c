@@ -1,6 +1,7 @@
 void
 movestack(const Arg *arg) {
 	Client *c = NULL, *p = NULL, *pc = NULL, *i;
+    Client *current_focus = selmon->sel;
 
 	if(arg->i > 0) {
 		/* find the client after selmon->sel */
@@ -44,5 +45,7 @@ movestack(const Arg *arg) {
 			selmon->clients = selmon->sel;
 
 		arrange(selmon);
+        warp(current_focus);
+        focus(current_focus);
 	}
 }
