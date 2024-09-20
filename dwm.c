@@ -162,6 +162,7 @@ typedef struct {
 } Rule;
 
 /* function declarations */
+static void applydefaultlayouts();
 static void applyrules(Client *c);
 static int applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact);
 static void arrange(Monitor *m);
@@ -317,10 +318,34 @@ struct Pertag {
 	int showbars[LENGTH(tags) + 1]; /* display bar for the current tag */
 };
 
+
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
 
 /* function implementations */
+void
+applydefaultlayouts()
+{
+    Monitor *m;
+    int i = 0, j, t = 0;
+
+    for (m = mons; m; m = m->next) {
+        j = lpm[i % LENGTH(lpm)];
+
+        for (t = 0; t <= LENGTH(tags); t++) {
+            //m->pertag->sellts[t] = j;
+            m->pertag->ltidxs[t][0] = &layouts[j];
+            m->pertag->ltidxs[t][1] = &layouts[(j + 1) % LENGTH(layouts)];
+        }
+
+        m->lt[0] = &layouts[j];
+        m->lt[1] = &layouts[(j + 1) % LENGTH(layouts)];
+        strncpy(m->ltsymbol, layouts[j].symbol, sizeof m->ltsymbol);
+
+        i++;
+    }
+}
+
 void
 applyrules(Client *c)
 {
@@ -2233,6 +2258,7 @@ updategeom(void)
 		selmon = mons;
 		selmon = wintomon(root);
 	}
+    applydefaultlayouts();
 	return dirty;
 }
 

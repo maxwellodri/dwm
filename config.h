@@ -58,12 +58,12 @@ static const char *tagsel[][2] = {
 
 static const Rule rules[] = {
 	/* xprop(1):
-	 *	WM_CLASS(STRING) = instance, class
+     *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
-	 */
+	*/
 	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent attachdirection,monitor */
 	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,         -1,           -1 },
-	{ "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,         +1,           -1 },
+    { "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,         +1,           -1 },
     { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,           -1 },
 	{ "St",      NULL,      NULL,           0,          0,          1,          0,         0,         -1,           -1 },
 	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,           -1 }, /* xev */
@@ -83,23 +83,28 @@ static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen win
 #include "attach.c"
 #define PERTAG_PATCH
 
+static const unsigned int lpm[] = {
+        /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
+        11 /*centeredmaster*/, 5 /*bstack*/
+};
+
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-	{ "[T]",      tile },    /* first entry is default */
-	{ "[M]",      monocle },
-	{ "[@]",      spiral },
-	{ "[W]",     dwindle },
-	{ "[D]",      deck },
-	{ "[S]",      bstack },
-	{ "[U]",      bstackhoriz },
-	{ "[g]",      grid },
-	{ "[G]",      nrowgrid },
-	{ "[-]",      horizgrid },
-	{ ":::",      gaplessgrid },
-	{ "|F|",      centeredmaster },
-	{ ">F>",      centeredfloatingmaster },
-	{ "><>",      NULL },    /* no layout function means floating behavior */
-	{ NULL,       NULL },
+/* 0*/	{ "[T]",      tile },    /* first entry is default */
+/* 1*/	{ "[M]",      monocle },
+/* 2*/	{ "[@]",      spiral },
+/* 3*/	{ "[W]",     dwindle },
+/* 4*/	{ "[D]",      deck },
+/* 5*/	{ "[S]",      bstack },
+/* 6*/	{ "[U]",      bstackhoriz },
+/* 7*/	{ "[g]",      grid },
+/* 8*/	{ "[G]",      nrowgrid },
+/* 9*/	{ "[-]",      horizgrid },
+/*10*/	{ ":::",      gaplessgrid },
+/*11*/	{ "|F|",      centeredmaster },
+/*12*/	{ ">F>",      centeredfloatingmaster },
+/*13*/	{ "><>",      NULL },    /* no layout function means floating behavior */
+	    { NULL,       NULL },
 };
 
 /* key definitions */
@@ -166,10 +171,10 @@ static const Key keys[] = {
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[9]} }, //horizgrid
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[10]} }, //gaplessgrid
 	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[11]} }, //centeredmaster
-    //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
+    { MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[13]} }, //All floating
 	//{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY,             XK_space,  togglefloating, {0} },
+	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
