@@ -82,18 +82,6 @@ static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen win
 #include "attach.c"
 #define PERTAG_PATCH
 
-void togglerice(const Arg *arg) {
-    borderpx=gapsborderpx-borderpx;
-    Monitor *m;
-    Client *c;
-    for (m = mons; m; m = m->next) {
-        for (c = m->clients; c; c = c->next) {
-            c->bw = borderpx;
-        }
-    }
-    togglegaps(arg);
-}
-
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",      tile },    /* first entry is default */
@@ -161,7 +149,7 @@ static const Key keys[] = {
 	//{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
 	//{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
 	//{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
-	{ MODKEY,                       XK_semicolon,      togglerice,     {0} },
+	{ MODKEY,                       XK_semicolon,      togglegaps,     {0} },
 	//{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
 	//{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_x,      nowarpkillclient,     {0} },

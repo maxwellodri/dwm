@@ -432,6 +432,20 @@ applysizehints(Client *c, int *x, int *y, int *w, int *h, int interact)
 void
 arrange(Monitor *m)
 {
+    Client *c;
+    for (m = mons; m; m = m->next) {
+    if (m == selmon) {
+        if (m->lt[m->sellt]->arrange != &monocle && gapsenabled() == 1) {
+            borderpx = gapsborderpx;
+        } else {
+            borderpx=0;
+        }
+    }
+
+    for (c = m->clients; c; c = c->next) {
+        c->bw = borderpx;
+    }
+    }
 	if (m)
 		showhide(m->stack);
 	else for (m = mons; m; m = m->next)

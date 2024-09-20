@@ -27,7 +27,7 @@ static void setgaps(int oh, int ov, int ih, int iv);
 
 /* Settings */
 #if !PERTAG_PATCH
-static int enablegaps = 0;
+static int enablegaps = 1;
 #endif // PERTAG_PATCH
 
 void
@@ -43,6 +43,16 @@ setgaps(int oh, int ov, int ih, int iv)
 	selmon->gappih = ih;
 	selmon->gappiv = iv;
 	arrange(selmon);
+}
+
+int
+gapsenabled()
+{
+	#if PERTAG_PATCH
+	return selmon->pertag->enablegaps[selmon->pertag->curtag] ? 1 : 0;
+	#else
+	return enablegaps ? 1 : 0;
+	#endif // PERTAG_PATCH
 }
 
 void
