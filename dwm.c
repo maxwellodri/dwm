@@ -2604,12 +2604,14 @@ void
 zoom(const Arg *arg)
 {
 	Client *c = selmon->sel;
+	Client *previous = selmon->sel;
 
 	if (!selmon->lt[selmon->sellt]->arrange || !c || c->isfloating)
 		return;
 	if (c == nexttiled(selmon->clients) && !(c = nexttiled(c->next)))
 		return;
 	pop(c);
+    warp(previous);
 }
 
 int
