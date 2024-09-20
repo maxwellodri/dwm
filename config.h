@@ -163,15 +163,15 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} }, //monocle
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[2]} }, //spiral
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[3]} }, //dwindle
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[4]} }, //deck
+	{ MODKEY,                       XK_slash,      setlayout,      {.v = &layouts[4]} }, //deck
 	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} }, //bstack
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[6]} }, //bstackhoriz
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[7]} }, //grid
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[8]} }, //nrowgrid
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[9]} }, //horizgrid
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[10]} }, //gaplessgrid
-	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[11]} }, //centeredmaster
-    { MODKEY|ShiftMask,             XK_c,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[11]} }, //centeredmaster
+    { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[13]} }, //All floating
 	//{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
