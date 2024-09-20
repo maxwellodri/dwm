@@ -87,6 +87,9 @@ static const unsigned int lpm[] = {
         /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
         11 /*centeredmaster*/, 6 /*bstack*/
 };
+static const unsigned int nmasterpermon[] = {
+    1,0
+};
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */

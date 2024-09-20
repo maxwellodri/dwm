@@ -328,7 +328,8 @@ void
 applydefaultlayouts()
 {
     Monitor *m;
-    int i = 0, j, t = 0;
+    int i,j,k,t;
+    i=0;
 
     for (m = mons; m; m = m->next) {
         j = lpm[i % LENGTH(lpm)];
@@ -343,6 +344,8 @@ applydefaultlayouts()
         m->lt[1] = &layouts[(j + 1) % LENGTH(layouts)];
         strncpy(m->ltsymbol, layouts[j].symbol, sizeof m->ltsymbol);
 
+        k = nmasterpermon[i % LENGTH(nmasterpermon)];
+        m->nmaster=nmasterpermon[k];
         i++;
     }
 }
