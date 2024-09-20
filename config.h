@@ -85,7 +85,7 @@ static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen win
 
 static const unsigned int lpm[] = {
         /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
-        11 /*centeredmaster*/, 5 /*bstack*/
+        11 /*centeredmaster*/, 6 /*bstack*/
 };
 
 static const Layout layouts[] = {
@@ -165,7 +165,7 @@ static const Key keys[] = {
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[3]} }, //dwindle
 	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} }, //deck
 	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} }, //bstack
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[6]} }, //bstackhoriz
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[6]} }, //bstackhoriz
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[7]} }, //grid
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[8]} }, //nrowgrid
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[9]} }, //horizgrid
