@@ -1073,18 +1073,7 @@ getclientundermouse(void)
 	if (!ret)
 		return NULL;
 
-	Client *c = wintoclient(child);
-    if (c) {
-        char client_debug[4096];
-        snprintf(client_debug, sizeof(client_debug), "Client found: %s | Pos: %d,%d,%d,%d", 
-                 c->name, c->x, c->y, c->w, c->h);
-        char client_cmd[4096];
-        snprintf(client_cmd, sizeof(client_cmd), "notify-send 'Found Client' '%s'", client_debug);
-        system(client_cmd);
-    } else {
-        system("notify-send 'Client Info' 'No client found under mouse'");
-    }
-    return c;
+    return wintoclient(child);;
 }
 
 int
