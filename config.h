@@ -174,6 +174,8 @@ static const Key keys[] = {
     { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[13]} }, //All floating
 	//{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
+	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
 	{ MODKEY,                       XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
