@@ -41,7 +41,7 @@ void view_click(const Arg* arg) { //disable warp on clicks
 void nowarpkillclient(const Arg* arg) {
     warp_enabled = 0;
     killclient(arg);
-    //set warp_enabled = 1; in dwm.c:unmanage
+    /*set warp_enabled = 1; in dwm.c:unmanage*/
 }
 
 static const char *tagsel[][2] = {
