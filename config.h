@@ -85,12 +85,13 @@ static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen win
 
 void debug(const Arg *arg) {
     int i=0;
-    int j;
+    int j,k;
     Monitor *m;
     for (m = mons; m; m = m->next) {
         j=m->nmaster;
+        k=m->sellt;
         char command[256];
-        snprintf(command, sizeof(command), "notify-send 'Monitor %d: nmaster: %d'", i, j);  // Added closing single quote
+        snprintf(command, sizeof(command), "notify-send 'Monitor %d: nmaster: %d'", i, j); 
         system(command); 
         i++;
     }
