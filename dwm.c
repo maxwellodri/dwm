@@ -1744,7 +1744,7 @@ sendevent(Client *c, Atom proto)
 	int n;
 	Atom *protocols;
 	int exists = 0;
-	XEvent ev;
+	XEvent ev = {0};
 
 	if (XGetWMProtocols(dpy, c->win, &protocols, &n)) {
 		while (!exists && n--)
