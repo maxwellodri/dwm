@@ -158,6 +158,7 @@ typedef struct {
 	int noswallow;
     int ispermanent;
     int attachdirection;
+    int nourgent;
 	int monitor;
 } Rule;
 
@@ -1919,7 +1920,25 @@ void
 seturgent(Client *c, int urg)
 {
 	XWMHints *wmh;
-
+    unsigned int i;
+	const char *class, *instance;
+	const Rule *r;
+	XClassHint ch = { NULL, NULL };
+	XGetClassHint(dpy, c->win, &ch);
+	class    = ch.res_class ? ch.res_class : broken;
+	instance = ch.res_name  ? ch.res_name  : broken;
+	for (i = 0; i < LENGTH(rules); i++) {
+		r = &rules[i];
+		if ((!r->title || strstr(c->name, r->title))
+		&& (!r->class || strstr(class, r->class))
+		&& (!r->instance || strstr(instance, r->instance)))
+		{
+			if (r->nourgent >= 0) {
+				urg = 0;
+				break;
+			}
+		}
+	}
 	c->isurgent = urg;
 	if (!(wmh = XGetWMHints(dpy, c->win)))
 		return;

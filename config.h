@@ -61,15 +61,17 @@ static const Rule rules[] = {
      *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	*/
-	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent attachdirection,monitor */
-	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,         -1,           -1 },
-    { "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,         +1,           -1 },
-    { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,           -1 },
-	{ "St",      NULL,      NULL,           0,          0,          1,          0,         0,         -1,           -1 },
-	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,           -1 }, /* xev */
-	{ "discord", NULL,	    "Discord",      1 << 2,     0,          0,          0,         0,         -1,           +1  }, 
-	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,           +1  },
-	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,           +1  }, 
+	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent attachdirection,  nourgent,      monitor */
+	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,         -1,               -1,         -1 },
+    { "firefox", NULL,      NULL,           0,          0,          0,          -1,        1,         +1,               -1,         -1 },
+    { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,               -1,         -1 },
+	{ "St",      NULL,      NULL,           0,          0,          1,          0,         0,         -1,               -1,         -1 },
+	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
+	{ "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 }, 
+	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
+	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+	{ "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+	{ "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         1,         -1,               -1,         +1 }, 
 };
 
 /* layout(s) */
