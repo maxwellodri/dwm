@@ -91,7 +91,11 @@ void debug(const Arg *arg) {
         j=m->nmaster;
         k=m->sellt;
         char command[256];
-        snprintf(command, sizeof(command), "notify-send 'Monitor %d: nmaster: %d'", i, j); 
+        if (m == selmon) {
+            snprintf(command, sizeof(command), "notify-send -t 1000 'Current Monitor %d: nmaster: %d'", i, j); 
+        } else {
+            snprintf(command, sizeof(command), "notify-send -t 1000 'Other Monitor %d: nmaster: %d'", i, j); 
+        }
         system(command); 
         i++;
     }
