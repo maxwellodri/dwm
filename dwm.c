@@ -1236,8 +1236,16 @@ grabkeys(void)
 void
 incnmaster(const Arg *arg)
 {
-	selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = MAX(selmon->nmaster + arg->i, 0);
-	arrange(selmon);
+    int num_clients = 0;
+    Client *c;
+    for (c = selmon->clients; c; c = c->next) {
+        if(ISVISIBLE(c))
+            num_clients++;
+    }
+    selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = 
+        MAX(0, MIN(selmon->nmaster + arg->i, num_clients + 1));
+
+    arrange(selmon);
 }
 
 #ifdef XINERAMA
