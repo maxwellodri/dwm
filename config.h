@@ -75,13 +75,26 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
 #include "attach.c"
 #define PERTAG_PATCH
+
+void debug(const Arg *arg) {
+    int i=0;
+    int j;
+    Monitor *m;
+    for (m = mons; m; m = m->next) {
+        j=m->nmaster;
+        char command[256];
+        snprintf(command, sizeof(command), "notify-send 'Monitor %d: nmaster: %d'", i, j);  // Added closing single quote
+        system(command); 
+        i++;
+    }
+}
 
 static const unsigned int lpm[] = {
         /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
@@ -144,6 +157,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	//{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
+	{ MODKEY|ControlMask,             XK_space, debug,           {0} },
 	{ MODKEY|ShiftMask,             XK_i,      incrgaps,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_p,      incrgaps,       {.i = -1 } },
 	//{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
