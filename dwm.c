@@ -328,24 +328,19 @@ void
 applydefaultlayouts()
 {
     Monitor *m;
-    int i,j,k,t;
-    i=0;
-
+    int i, j, t;
+    i = 0;
     for (m = mons; m; m = m->next) {
         j = lpm[i % LENGTH(lpm)];
-
-        for (t = 0; t <= LENGTH(tags); t++) {
-            //m->pertag->sellts[t] = j;
-            m->pertag->ltidxs[t][0] = &layouts[j];
-            m->pertag->ltidxs[t][1] = &layouts[(j + 1) % LENGTH(layouts)];
-        }
-
+        m->nmaster = nmasterpermon[i % LENGTH(nmasterpermon)];
         m->lt[0] = &layouts[j];
         m->lt[1] = &layouts[(j + 1) % LENGTH(layouts)];
         strncpy(m->ltsymbol, layouts[j].symbol, sizeof m->ltsymbol);
-
-        k = nmasterpermon[i % LENGTH(nmasterpermon)];
-        m->nmaster=nmasterpermon[k];
+        for (t = 0; t <= LENGTH(tags); t++) {
+            m->pertag->ltidxs[t][0] = &layouts[j];
+            m->pertag->ltidxs[t][1] = &layouts[(j + 1) % LENGTH(layouts)];
+            m->pertag->nmasters[t] = m->nmaster;
+        }
         i++;
     }
 }
