@@ -145,6 +145,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char *layoutmenu_cmd = "layoutmenu.sh";
 
 #include "movestack.c"
 static const Key keys[] = {
@@ -227,6 +228,7 @@ static const Button buttons[] = {
 	//{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	//{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	//{ ClkStatusText,        0,              Button2,        spawn,          {.v = termcmd } },
+	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	//{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
