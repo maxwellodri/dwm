@@ -52,7 +52,7 @@ static const char *tagsel[][2] = {
 	{ "#000000", "#9547B7" }, //Purpurus
 	{ "#000000", "#FF2222" }, //Red
 	{ "#000000", "#FF69B4" }, //Hot pink
-	{ "#000000", "#ffffff" }, //White
+	{ "#000000", "#d0ff7f" }, //Pale Yellow-Green
 	{ "#000000", "#00EDFF" }, //Cyan
 };
 
