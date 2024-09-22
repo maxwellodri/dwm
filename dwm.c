@@ -466,11 +466,11 @@ arrange(Monitor *m)
             } else {
                 borderpx=0;
             }
+            for (c = m->clients; c; c = c->next) {
+                c->bw = borderpx;
+            }
         }
 
-        for (c = m->clients; c; c = c->next) {
-            c->bw = borderpx;
-        }
     }
 	if (m)
 		showhide(m->stack);
