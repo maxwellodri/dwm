@@ -130,6 +130,81 @@ static const Layout layouts[] = {
 	    { NULL,       NULL },
 };
 
+static inline Bool ismaster(Client *c) {
+    int i = 0;
+    Client *t;
+
+    for (t = nexttiled(selmon->clients); t && i < selmon->nmaster; t = nexttiled(t->next), i++) {
+        if (t == c)
+            return True;
+    }
+    return False;
+}
+
+Client *deckcyclechildclients() {
+    Client **pc, *c, *first_child = NULL, *last_child = NULL;
+    int n = 0, i;
+
+    for (c = nexttiled(selmon->clients); c; c = nexttiled(c->next))
+        n++;
+
+    int num_child_clients = n - selmon->nmaster;
+    if (num_child_clients < 2) {
+        return NULL;
+    }
+    c = nexttiled(selmon->clients);
+    for (i = 0; i < selmon->nmaster && c; c = nexttiled(c->next), i++); // Skip master clients
+    first_child = c;
+    if (!first_child)
+        return NULL;
+    for (last_child = first_child; nexttiled(last_child->next); last_child = nexttiled(last_child->next));
+
+    pc = &selmon->clients;
+    while (*pc && *pc != first_child)
+        pc = &(*pc)->next;
+
+    if (*pc == first_child) {
+        *pc = first_child->next;          
+        last_child->next = first_child;   
+        first_child->next = NULL;         
+    }
+    c = nexttiled(selmon->clients);
+    for (i = 0; i < selmon->nmaster && c; c = nexttiled(c->next), i++);
+
+    return c;
+}
+
+#include "movestack.c"
+static void attachstack(Client *c);
+void deckcmd(const Arg *arg) {
+    if (selmon->lt[selmon->sellt]->arrange != &deck) {
+        Arg arg;
+        arg.v = &layouts[4];
+        setlayout(&arg);
+    } else {
+        int n;
+        Client *c;
+        for (n = 0, c = nexttiled(selmon->clients); c; c = nexttiled(c->next), n++);
+        int num_child_clients = n - (int)(selmon->nmaster);
+        if (num_child_clients <= 1) {return;}
+
+        Bool bismaster = ismaster(selmon->sel);
+        Client *oldfocus = selmon->sel;
+        Client *newfocused = deckcyclechildclients();
+		detachstack(newfocused);
+		attachstack(newfocused);
+        if ( bismaster ) {
+            focus(oldfocus);
+        }
+        else {
+            focus(newfocused);
+        }
+        restack(selmon);
+    }
+}
+
+
+
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -147,7 +222,6 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
 
-#include "movestack.c"
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -188,7 +262,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} }, //monocle
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[2]} }, //spiral
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[3]} }, //dwindle
-	{ MODKEY|ShiftMask,             XK_d,      setlayout,      {.v = &layouts[4]} }, //deck
+	{ MODKEY|ShiftMask,             XK_d,      deckcmd,         {0} }, //deck
 	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} }, //bstack
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[6]} }, //bstackhoriz
 	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[7]} }, //grid
