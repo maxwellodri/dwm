@@ -71,7 +71,9 @@ static const Rule rules[] = {
 	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
 	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
 	{ "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+	{ "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
 	{ "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+
 };
 
 /* layout(s) */
