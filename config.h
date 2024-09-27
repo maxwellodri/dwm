@@ -66,14 +66,14 @@ static const Rule rules[] = {
     { "firefox", "Navigator",NULL,           0,          0,          1,         -1,        1,         +1,               -1,         -1 },
     { "firefox","Toolkit",  "Picture-in-Picture",0,     0,          0,          -1,        1,         +1,               -1,         -1 },
     { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,               -1,         -1 },
-	{ "St",      NULL,      NULL,           0,          0,          1,          +0,         0,         -1,               -1,         -1 },
+	{ "St",      NULL,      NULL,           0,          0,          1,          +0,         0,         -1,               -1,        -1 },
 	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
-	{ "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 }, 
-	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
-	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-	{ "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-	{ "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-	{ "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+	{ "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
+	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         0,         -1,               +1,         +1 },
+	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
+	{ "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
+	{ "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
+	{ "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         0,         -1,               -1,         +1 },
 
 };
 
