@@ -6,6 +6,17 @@ include config.mk
 SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
 
+# Default value for dotfile_tag if not provided
+dotfile_tag ?= ""
+
+# Check the value of dotfile_tag and set the corresponding flags
+ifeq ($(dotfile_tag),pc)
+    CFLAGS += -DDOTFILE_TAG_PC
+endif
+ifeq ($(dotfile_tag),hackerman)
+    CFLAGS += -DDOTFILE_TAG_HACKERMAN
+endif
+
 all: dwm
 
 .c.o:
