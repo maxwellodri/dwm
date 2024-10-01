@@ -307,6 +307,7 @@ static const Button buttons[] = {
 	//{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
 	//{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button1,        spawn,          SHCMD("get_reminders.sh") },
+	{ ClkStatusText,        MODKEY,         Button1,        spawn,          SHCMD("open_reminders.rem.sh") },
 	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	//{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
