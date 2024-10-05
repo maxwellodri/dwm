@@ -111,7 +111,7 @@ void debug(const Arg *arg) {
 
 static const unsigned int lpm[] = {
         /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
-        11 /*centeredmaster*/, 6 /*bstack*/
+        0 /*tile*/, 6 /*bstack*/
 };
 static const unsigned int nmasterpermon[] = {
     1,0
@@ -122,7 +122,7 @@ static const Layout layouts[] = {
 /* 0*/	{ "[T]",      tile },    /* first entry is default */
 /* 1*/	{ "[M]",      monocle },
 /* 2*/	{ "[@]",      spiral },
-/* 3*/	{ "[W]",     dwindle },
+/* 3*/	{ "[W]",      dwindle },
 /* 4*/	{ "[D]",      deck },
 /* 5*/	{ "[S]",      bstack },
 /* 6*/	{ "[U]",      bstackhoriz },
