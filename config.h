@@ -67,6 +67,7 @@ static const Rule rules[] = {
     { "firefox","Toolkit",  "Picture-in-Picture",0,     0,          0,          -1,        1,         +1,               -1,         -1 },
     { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,               -1,         -1 },
 	{ "St",      NULL,      NULL,           0,          0,          1,          +0,         0,         -1,               -1,        -1 },
+	{ "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,         0,         -1,               -1,        -1 },
 	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
 #ifdef DOTFILE_TAG_PC
 	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
