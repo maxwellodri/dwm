@@ -94,11 +94,11 @@ static const int resizehints = 0;    /* 1 means respect size hints in tiled resi
 
 void debug(const Arg *arg) {
     int i=0;
-    int j,k;
+    int j;
     Monitor *m;
     for (m = mons; m; m = m->next) {
         j=m->nmaster;
-        k=m->sellt;
+        m->sellt;
         char command[256];
         if (m == selmon) {
             snprintf(command, sizeof(command), "notify-send -t 1000 'Current Monitor %d: nmaster: %d'", i, j); 
