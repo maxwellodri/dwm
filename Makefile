@@ -7,9 +7,19 @@ SRC = drw.c dwm.c util.c
 OBJ = ${SRC:.c=.o}
 
 # Default value for dotfile_tag if not provided
-dotfile_tag ?= ""
+ifeq ($(shell id -u), 0)
+    ifeq ($(shell test -e /etc/dotfile_tag && echo 1 || echo 0), 1)
+    dotfile_tag := $(shell cat /etc/dotfile_tag)
+else
+    $(error /etc/dotfile_tag needs to be created. e.g. 'echo pc > /etc/dotfile_tag')
+endif
+else
+    dotfile_tag ?= ""
+endif
+$(info dotfile_tag is '$(dotfile_tag)')
 
 # Check the value of dotfile_tag and set the corresponding flags
+#CFLAGS += -DDOTFILE_TAG_PC
 ifeq ($(dotfile_tag),pc)
     CFLAGS += -DDOTFILE_TAG_PC
 endif
