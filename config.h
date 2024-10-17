@@ -56,27 +56,39 @@ static const char *tagsel[][2] = {
 	{ "#000000", "#00EDFF" }, //Cyan
 };
 
+#define TAG_1 1 << 0
+#define TAG_2 1 << 1
+#define TAG_3 1 << 2
+#define TAG_4 1 << 3
+#define TAG_5 1 << 4
+#define TAG_6 1 << 5
+#define TAG_7 1 << 6
+#define TAG_8 1 << 7
+#define TAG_9 1 << 8
+
 static const Rule rules[] = {
-	/* xprop(1):
+    /* xprop(1):
      *	WM_CLASS(STRING) = instance, class
-	 *	WM_NAME(STRING) = title
-	*/
-	/* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent attachdirection,  nourgent,      monitor */
-	{ "Gimp",    NULL,      NULL,           0,          1,          0,          0,         0,         -1,               -1,         -1 },
-    { "firefox", "Navigator",NULL,           0,          0,          1,         -1,        1,         +1,               -1,         -1 },
+     *	WM_NAME(STRING) = title
+     */
+    /* class     instance   title           tags mask  isfloating  isterminal  noswallow  ispermanent attachdirection,  nourgent,      monitor */
+    { "Gimp",    NULL,      NULL,           0,          1,          0,          +0,        0,         -1,               -1,         -1 },
+    { "firefox", "Navigator",NULL,           0,         0,          1,          -1,        1,         +1,               -1,         -1 },
     { "firefox","Toolkit",  "Picture-in-Picture",0,     0,          0,          -1,        1,         +1,               -1,         -1 },
     { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,               -1,         -1 },
-	{ "St",      NULL,      NULL,           0,          0,          1,          +0,         0,         -1,               -1,        -1 },
-	{ "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,         0,         -1,               -1,        -1 },
-	{ NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
+    { "St",      NULL,      NULL,           0,          0,          1,          +0,        0,         -1,               -1,         -1 },
+    { "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,        0,         -1,               -1,         -1 },
+    { NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
 #ifdef DOTFILE_TAG_PC
-	{ "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
-	{ "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
-	{ "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-	{ "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
-	{ "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-	{ "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-    { "org.nicotine_plus.Nicotine",NULL,NULL, 1 << 7,   0,          0,          0,         0,         -1,               +1,         +0 },
+    { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
+    { "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
+    { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+    { "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
+    { "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+    { "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+    { "org.nicotine_plus.Nicotine",NULL,NULL,1 << 7,   0,          0,          0,         0,         -1,               +1,         +0 },
+    { "Blender",NULL,NULL,                  TAG_3,     0,          0,          0,         0,         -1,               -1,         +0 },
+    { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
 #endif
 
 };
