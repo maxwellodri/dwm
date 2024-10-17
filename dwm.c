@@ -204,6 +204,7 @@ static int gettextprop(Window w, Atom atom, char *text, unsigned int size);
 static void grabbuttons(Client *c, int focused);
 static void grabkeys(void);
 static void incnmaster(const Arg *arg);
+static int is_visible(Client *C);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void layoutmenu(const Arg *arg);
@@ -1251,6 +1252,21 @@ incnmaster(const Arg *arg)
         MAX(0, MIN(selmon->nmaster + arg->i, num_clients + 1));
 
     arrange(selmon);
+}
+
+static int is_visible(Client *C) {
+    int original = ISVISIBLEONTAG(C, C->mon->tagset[C->mon->seltags]);
+    if ( C->mon->lt[C->mon->sellt]->arrange == &monocle) {
+        if (original && C->mon->sel == C && C != NULL) {
+            return 1;  // The tag is visible
+        }
+        return 0;  // The tag is not visible
+
+    } else if ( C->mon->lt[C->mon->sellt]->arrange == &monocle) {
+
+
+    } 
+    return original;
 }
 
 #ifdef XINERAMA
