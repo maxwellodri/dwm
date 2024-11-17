@@ -322,6 +322,7 @@ static const Button buttons[] = {
 	//{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
 	{ ClkStatusText,        0,              Button1,        spawn,          SHCMD("get_reminders.sh") },
 	{ ClkStatusText,        MODKEY,         Button1,        spawn,          SHCMD("open_reminders.rem.sh") },
+	{ ClkStatusText,        MODKEY | ShiftMask,         Button1,        spawn,          SHCMD("sync_private.sh") },
 	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	//{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
