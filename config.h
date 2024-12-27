@@ -80,15 +80,16 @@ static const Rule rules[] = {
     { "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,        0,         -1,               -1,         -1 },
     { NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
 #ifdef DOTFILE_TAG_PC
-    { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
+    { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         0,         -1,               +1,         +1 },
     { "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
-    { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+    { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 }, 
     { "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
-    { "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         1,         -1,               -1,         +1 }, 
-    { "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         1,         -1,               -1,         +1 }, 
+    { "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 }, 
+    { "thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         0,         -1,               -1,         +1 }, 
     { "org.nicotine_plus.Nicotine",NULL,NULL,1 << 7,   0,          0,          0,         0,         -1,               +1,         +0 },
     { "Blender",NULL,NULL,                  TAG_3,     0,          0,          0,         0,         -1,               -1,         +0 },
     { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
+    { "dota",NULL,NULL,                  0,     0,          0,          0,         0,         -1,               -1,         +0 },
 #endif
 
 };
