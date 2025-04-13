@@ -89,7 +89,9 @@ static const Rule rules[] = {
     { "org.nicotine_plus.Nicotine",NULL,NULL,1 << 7,   0,          0,          0,         0,         -1,               +1,         +0 },
     { "Blender",NULL,NULL,                  TAG_3,     0,          0,          0,         0,         -1,               -1,         +0 },
     { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
-    { "dota",NULL,NULL,                  0,     0,          0,          0,         0,         -1,               -1,         +0 },
+    { "dota",NULL,NULL,                     0,     0,          0,          0,         0,         -1,               -1,         +0 },
+    {  "bevy",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
+    {  "bevy-noswallow",NULL, NULL,                  0,     0,          -1,            -1,         0,         -1,               -1,         +0 },
 #endif
 
 };
