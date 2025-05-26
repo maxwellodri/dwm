@@ -1088,21 +1088,55 @@ focusstack(const Arg *arg)
 {
 	Client *c = NULL, *i;
 
-	if ((!selmon->sel) || (selmon->sel->isfullscreen)) // && lockfullscreen))
+	if ((!selmon->sel) || (selmon->sel->isfullscreen))
 		return;
-	if (arg->i > 0) {
-		for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
-		if (!c)
-			for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
+
+	// Special handling for deck layout
+	if (selmon->lt[selmon->sellt]->arrange == &deck) {
+		Client *clients[32]; // Stack for deck clients
+		int count = 0;
+		int current_idx = -1;
+		
+		// Collect master windows + first slave, skip floating
+		for (i = selmon->clients; i && count < selmon->nmaster + 1; i = i->next) {
+			if (ISVISIBLE(i) && !i->isfloating) {
+				clients[count] = i;
+				if (i == selmon->sel)
+					current_idx = count;
+				count++;
+			}
+		}
+		
+		// If current selection is floating, bail out
+		if (selmon->sel->isfloating)
+			return;
+		
+		if (count == 0 || current_idx == -1)
+			return;
+			
+		// Navigate within limited set
+		if (arg->i > 0) {
+			c = clients[(current_idx + 1) % count];
+		} else {
+			c = clients[(current_idx - 1 + count) % count];
+		}
 	} else {
-		for (i = selmon->clients; i != selmon->sel; i = i->next)
-			if (ISVISIBLE(i))
-				c = i;
-		if (!c)
-			for (; i; i = i->next)
+		// Original logic for other layouts
+		if (arg->i > 0) {
+			for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+			if (!c)
+				for (c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
+		} else {
+			for (i = selmon->clients; i != selmon->sel; i = i->next)
 				if (ISVISIBLE(i))
 					c = i;
+			if (!c)
+				for (; i; i = i->next)
+					if (ISVISIBLE(i))
+						c = i;
+		}
 	}
+	
 	if (c) {
 		focus(c);
 		restack(selmon);
