@@ -135,20 +135,20 @@ static const unsigned int nmasterpermon[] = {
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
-/* 0*/	{ "[T]",      tile },    /* first entry is default */
-/* 1*/	{ "[M]",      monocle },
-/* 2*/	{ "[@]",      spiral },
-/* 3*/	{ "[W]",      dwindle },
-/* 4*/	{ "[D]",      deck },
-/* 5*/	{ "[S]",      bstack },
-/* 6*/	{ "[U]",      bstackhoriz },
-/* 7*/	{ "[g]",      grid },
-/* 8*/	{ "[G]",      nrowgrid },
-/* 9*/	{ "[-]",      horizgrid },
-/*10*/	{ ":::",      gaplessgrid },
-/*11*/	{ "|F|",      centeredmaster },
-/*12*/	{ ">F>",      centeredfloatingmaster },
-/*13*/	{ "><>",      NULL },    /* no layout function means floating behavior */
+/* 0*/	{ "[T] ",      tile },    /* first entry is default */
+/* 1*/	{ "[M] ",      monocle },
+/* 2*/	{ "[@] ",      spiral },
+/* 3*/	{ "[W] ",      dwindle },
+/* 4*/	{ "[D] ",      deck },
+/* 5*/	{ "[S] ",      bstack },
+/* 6*/	{ "[U] ",      bstackhoriz },
+/* 7*/	{ "[g] ",      grid },
+/* 8*/	{ "[G] ",      nrowgrid },
+/* 9*/	{ "[-] ",      horizgrid },
+/*10*/	{ "::: ",      gaplessgrid },
+/*11*/	{ "|F| ",      centeredmaster },
+/*12*/	{ ">F> ",      centeredfloatingmaster },
+/*13*/	{ "><> ",      NULL },    /* no layout function means floating behavior */
 	    { NULL,       NULL },
 };
 

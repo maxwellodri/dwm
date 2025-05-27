@@ -1107,12 +1107,20 @@ focusstack(const Arg *arg)
 			}
 		}
 		
-		// If current selection is floating, bail out
-		if (selmon->sel->isfloating)
+		if (count == 0)
 			return;
-		
-		if (count == 0 || current_idx == -1)
-			return;
+			
+		if (current_idx == -1) {
+			// Current is floating, find first tiled window
+			c = clients[0];
+		} else {
+			// Navigate within tiled set
+			if (arg->i > 0) {
+				c = clients[(current_idx + 1) % count];
+			} else {
+				c = clients[(current_idx - 1 + count) % count];
+			}
+		}
 			
 		// Navigate within limited set
 		if (arg->i > 0) {
@@ -1136,11 +1144,15 @@ focusstack(const Arg *arg)
 						c = i;
 		}
 	}
-	
-	if (c) {
-		focus(c);
-		restack(selmon);
-	}
+    if (c) {
+        focus(c);
+        Client *f;
+        for (f = selmon->clients; f; f = f->next) {
+            if (f->isfloating && ISVISIBLE(f))
+                XRaiseWindow(dpy, f->win);
+        }
+        restack(selmon);
+    }
 }
 
 Atom
@@ -2132,14 +2144,30 @@ togglefloating(const Arg *arg)
 {
 	if (!selmon->sel)
 		return;
-	if (selmon->sel->isfullscreen) /* no support for fullscreen windows */
+	if (selmon->sel->isfullscreen)
 		return;
-	selmon->sel->isfloating = !selmon->sel->isfloating || selmon->sel->isfixed;
-	if (selmon->sel->isfloating)
-		resize(selmon->sel, selmon->sel->x, selmon->sel->y,
-			selmon->sel->w, selmon->sel->h, 0);
-	arrange(selmon);
-    drawbar(selmon);
+	
+	if (!selmon->sel->isfloating) {
+		int neww = selmon->sel->w / 2;
+		int newh = selmon->sel->h / 2;
+		int newx, newy;
+		
+		if (selmon->lt[selmon->sellt]->arrange == &deck) {
+			newx = selmon->mx + selmon->mw - neww - selmon->gappoh;
+			newy = selmon->my + selmon->mh - newh - selmon->gappov;
+		} else {
+			newx = selmon->mx + (selmon->mw - neww) / 2;
+			newy = selmon->my + (selmon->mh - newh) / 2;
+		}
+		
+		selmon->sel->isfloating = 1;
+		resize(selmon->sel, newx, newy, neww, newh, 0);
+		XRaiseWindow(dpy, selmon->sel->win);
+	} else {
+		selmon->sel->isfloating = 0;
+		arrange(selmon);
+	}
+	drawbar(selmon);
 }
 
 void
