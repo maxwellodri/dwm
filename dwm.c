@@ -1091,13 +1091,11 @@ focusstack(const Arg *arg)
 	if ((!selmon->sel) || (selmon->sel->isfullscreen))
 		return;
 
-	// Special handling for deck layout
 	if (selmon->lt[selmon->sellt]->arrange == &deck) {
-		Client *clients[32]; // Stack for deck clients
+		Client *clients[32];
 		int count = 0;
 		int current_idx = -1;
 		
-		// Collect master windows + first slave, skip floating
 		for (i = selmon->clients; i && count < selmon->nmaster + 1; i = i->next) {
 			if (ISVISIBLE(i) && !i->isfloating) {
 				clients[count] = i;
@@ -1111,25 +1109,15 @@ focusstack(const Arg *arg)
 			return;
 			
 		if (current_idx == -1) {
-			// Current is floating, find first tiled window
 			c = clients[0];
 		} else {
-			// Navigate within tiled set
 			if (arg->i > 0) {
 				c = clients[(current_idx + 1) % count];
 			} else {
 				c = clients[(current_idx - 1 + count) % count];
 			}
 		}
-			
-		// Navigate within limited set
-		if (arg->i > 0) {
-			c = clients[(current_idx + 1) % count];
-		} else {
-			c = clients[(current_idx - 1 + count) % count];
-		}
 	} else {
-		// Original logic for other layouts
 		if (arg->i > 0) {
 			for (c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
 			if (!c)
@@ -1144,15 +1132,16 @@ focusstack(const Arg *arg)
 						c = i;
 		}
 	}
-    if (c) {
-        focus(c);
-        Client *f;
-        for (f = selmon->clients; f; f = f->next) {
-            if (f->isfloating && ISVISIBLE(f))
-                XRaiseWindow(dpy, f->win);
-        }
-        restack(selmon);
-    }
+
+	if (c) {
+		focus(c);
+		Client *f;
+		for (f = selmon->clients; f; f = f->next) {
+			if (f->isfloating && ISVISIBLE(f))
+				XRaiseWindow(dpy, f->win);
+		}
+		restack(selmon);
+	}
 }
 
 Atom
@@ -2163,6 +2152,9 @@ togglefloating(const Arg *arg)
 		selmon->sel->isfloating = 1;
 		resize(selmon->sel, newx, newy, neww, newh, 0);
 		XRaiseWindow(dpy, selmon->sel->win);
+        if (selmon->lt[selmon->sellt]->arrange == &deck) {
+            arrange(selmon);
+        }
 	} else {
 		selmon->sel->isfloating = 0;
 		arrange(selmon);
