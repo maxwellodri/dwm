@@ -43,6 +43,14 @@ void nowarpkillclient(const Arg* arg) {
     killclient(arg);
     /*set warp_enabled = 1; in dwm.c:unmanage*/
 }
+void texthandler() {
+    char *bin = getenv("bin");
+    if (!bin) return;
+    
+    char command[512];
+    snprintf(command, sizeof(command), "%s/text_handler.sh &", bin);
+    system(command);
+}
 
 static const char *tagsel[][2] = {
 	{ "#000000", "#1462EA" }, //Bright Blue
@@ -331,6 +339,7 @@ static const Button buttons[] = {
 	//{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
 	{ ClkTagBar,            0,              Button1,        view_click,           {0} },
+	{ ClkStatusText,            0,              Button2,        texthandler,           {0} },
 	//{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	//{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	//{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
