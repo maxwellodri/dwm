@@ -25,7 +25,7 @@ static const char col_magenta[]        = "#ff5555";
 static const char col_red[]        = "#ff0000";
 static const char col_purplepink[]        = "#4c004c";
 static const char *colors[][3]      = {
-	/*               fg         bg         border   */
+    /*               fg         bg         border   */
     [SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
     [SchemeSel]  = { col_gray4, col_purplepink,  col_white  },
 };
@@ -38,30 +38,29 @@ void view_click(const Arg* arg) { //disable warp on clicks
     view(arg);
     warp_enabled = 1;
 }
+void open_project() {
+    system("open_project.sh");
+}
 void nowarpkillclient(const Arg* arg) {
     warp_enabled = 0;
     killclient(arg);
     /*set warp_enabled = 1; in dwm.c:unmanage*/
 }
 void texthandler() {
-    char *bin = getenv("bin");
-    if (!bin) return;
-    
-    char command[512];
-    snprintf(command, sizeof(command), "%s/text_handler.sh &", bin);
-    system(command);
+    system("mkdir /tmp/dotfiles/");
+    system("setsid $XDG_CONFIG_HOME/dotfiles/dwm_texthandler.sh > /tmp/dotfiles/dwm_texthandler_debug.log 2>&1 &");
 }
 
 static const char *tagsel[][2] = {
-	{ "#000000", "#1462EA" }, //Bright Blue
-	{ "#000000", "#E2781C" }, //Tangelo Orange
-	{ "#000000", "#11ff11" }, //Green
-	{ "#000000", "#ffff00" }, //Yellow
-	{ "#000000", "#9547B7" }, //Purpurus
-	{ "#000000", "#FF2222" }, //Red
-	{ "#000000", "#FF69B4" }, //Hot pink
-	{ "#000000", "#d0ff7f" }, //Pale Yellow-Green
-	{ "#000000", "#00EDFF" }, //Cyan
+    { "#000000", "#1462EA" }, //Bright Blue
+    { "#000000", "#E2781C" }, //Tangelo Orange
+    { "#000000", "#11ff11" }, //Green
+    { "#000000", "#ffff00" }, //Yellow
+    { "#000000", "#9547B7" }, //Purpurus
+    { "#000000", "#FF2222" }, //Red
+    { "#000000", "#FF69B4" }, //Hot pink
+    { "#000000", "#d0ff7f" }, //Pale Yellow-Green
+    { "#000000", "#00EDFF" }, //Cyan
 };
 
 #define TAG_1 1 << 0
@@ -134,30 +133,30 @@ void debug(const Arg *arg) {
 }
 
 static const unsigned int lpm[] = {
-        /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
-        0 /*tile*/, 6 /*bstack*/
+    /* Index of preferred layout], if LENGTH(lpm)<#monitors -> default layout */
+    0 /*tile*/, 6 /*bstack*/
 };
 static const unsigned int nmasterpermon[] = {
     1,0
 };
 
 static const Layout layouts[] = {
-	/* symbol     arrange function */
-/* 0*/	{ "[T] ",      tile },    /* first entry is default */
-/* 1*/	{ "[M] ",      monocle },
-/* 2*/	{ "[@] ",      spiral },
-/* 3*/	{ "[W] ",      dwindle },
-/* 4*/	{ "[D] ",      deck },
-/* 5*/	{ "[S] ",      bstack },
-/* 6*/	{ "[U] ",      bstackhoriz },
-/* 7*/	{ "[g] ",      grid },
-/* 8*/	{ "[G] ",      nrowgrid },
-/* 9*/	{ "[-] ",      horizgrid },
-/*10*/	{ "::: ",      gaplessgrid },
-/*11*/	{ "|F| ",      centeredmaster },
-/*12*/	{ ">F> ",      centeredfloatingmaster },
-/*13*/	{ "><> ",      NULL },    /* no layout function means floating behavior */
-	    { NULL,       NULL },
+    /* symbol     arrange function */
+    /* 0*/	{ "[T] ",      tile },    /* first entry is default */
+    /* 1*/	{ "[M] ",      monocle },
+    /* 2*/	{ "[@] ",      spiral },
+    /* 3*/	{ "[W] ",      dwindle },
+    /* 4*/	{ "[D] ",      deck },
+    /* 5*/	{ "[S] ",      bstack },
+    /* 6*/	{ "[U] ",      bstackhoriz },
+    /* 7*/	{ "[g] ",      grid },
+    /* 8*/	{ "[G] ",      nrowgrid },
+    /* 9*/	{ "[-] ",      horizgrid },
+    /*10*/	{ "::: ",      gaplessgrid },
+    /*11*/	{ "|F| ",      centeredmaster },
+    /*12*/	{ ">F> ",      centeredfloatingmaster },
+    /*13*/	{ "><> ",      NULL },    /* no layout function means floating behavior */
+    { NULL,       NULL },
 };
 
 static inline Bool ismaster(Client *c) {
@@ -221,8 +220,8 @@ void deckcmd(const Arg *arg) {
         Bool bismaster = ismaster(selmon->sel);
         Client *oldfocus = selmon->sel;
         Client *newfocused = deckcyclechildclients();
-		detachstack(newfocused);
-		attachstack(newfocused);
+        detachstack(newfocused);
+        attachstack(newfocused);
         if ( bismaster ) {
             focus(oldfocus);
         }
@@ -238,10 +237,10 @@ void deckcmd(const Arg *arg) {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -253,95 +252,96 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
 
 static const Key keys[] = {
-	/* modifier                     key        function        argument */
-	//{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	//{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_p,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
-	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
-	//{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
-	{ MODKEY|ControlMask,             XK_space, debug,           {0} },
-	{ MODKEY|ShiftMask,             XK_i,      incrgaps,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_p,      incrgaps,       {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
-	//{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
-	//{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
-	{ MODKEY,                       XK_semicolon,      togglegaps,     {0} },
-	//{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
-	//{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_x,      nowarpkillclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, //tile
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} }, //monocle
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[2]} }, //spiral
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[3]} }, //dwindle
-	{ MODKEY|ShiftMask,             XK_d,      deckcmd,         {0} }, //deck
-	{ MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} }, //bstack
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[6]} }, //bstackhoriz
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[7]} }, //grid
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[8]} }, //nrowgrid
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[9]} }, //horizgrid
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[10]} }, //gaplessgrid
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[11]} }, //centeredmaster
-    { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
-	//{ MODKEY,                       ?,      setlayout,      {.v = &layouts[13]} }, //All floating
-	//{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
-	{ MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
-	{ MODKEY,                       XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	//{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+    /* modifier                     key        function        argument */
+    //{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+    //{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
+    { MODKEY,                       XK_b,      togglebar,      {0} },
+    { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
+    { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
+    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+    { MODKEY,                       XK_p,      incnmaster,     {.i = -1 } },
+    { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
+    { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+    { MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.25} },
+    { MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
+    //{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
+    { MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
+    { MODKEY|ControlMask,             XK_space, debug,           {0} },
+    { MODKEY|ShiftMask,             XK_i,      incrgaps,       {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_p,      incrgaps,       {.i = -1 } },
+    //{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
+    //{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
+    //{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
+    //{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
+    //{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
+    //{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
+    //{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
+    //{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
+    //{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
+    //{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
+    //{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
+    //{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+    { MODKEY,                       XK_semicolon,      togglegaps,     {0} },
+    //{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+    //{ MODKEY,                       XK_Tab,    view,           {0} },
+    { MODKEY|ShiftMask,             XK_x,      nowarpkillclient,     {0} },
+    { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, //tile
+    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} }, //monocle
+                                                                                     //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[2]} }, //spiral
+                                                                                     //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[3]} }, //dwindle
+    { MODKEY|ShiftMask,             XK_d,      deckcmd,         {0} }, //deck
+    { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} }, //bstack
+    { MODKEY,                       XK_u,      setlayout,      {.v = &layouts[6]} }, //bstackhoriz
+                                                                                     //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[7]} }, //grid
+                                                                                     //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[8]} }, //nrowgrid
+                                                                                     //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[9]} }, //horizgrid
+                                                                                     //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[10]} }, //gaplessgrid
+    { MODKEY,                       XK_f,      open_project,       {0}}, 
+    { MODKEY|ShiftMask,                       XK_f,      setlayout,      {.v = &layouts[11]} }, //centeredmaster
+    { MODKEY|ShiftMask|ControlMask,             XK_f,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
+                                                                                      //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[13]} }, //All floating
+                                                                                      //{ MODKEY,                       XK_space,  setlayout,      {0} },
+    { MODKEY|ControlMask,		    XK_comma,  cyclelayout,    {.i = -1 } },
+    { MODKEY|ControlMask,           XK_period, cyclelayout,    {.i = +1 } },
+    { MODKEY,                       XK_space,  togglefloating, {0} },
+    { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+    { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
+    { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
+    { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
+    { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
+    { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+    TAGKEYS(                        XK_1,                      0)
+        TAGKEYS(                        XK_2,                      1)
+        TAGKEYS(                        XK_3,                      2)
+        TAGKEYS(                        XK_4,                      3)
+        TAGKEYS(                        XK_5,                      4)
+        TAGKEYS(                        XK_6,                      5)
+        TAGKEYS(                        XK_7,                      6)
+        TAGKEYS(                        XK_8,                      7)
+        TAGKEYS(                        XK_9,                      8)
+        //{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static const Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	//{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
-	//{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
-	//{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
-	{ ClkStatusText,        0,              Button1,        spawn,          SHCMD("get_reminders.sh") },
-	{ ClkStatusText,        MODKEY,         Button1,        spawn,          SHCMD("open_reminders.rem.sh") },
-	{ ClkStatusText,        MODKEY | ShiftMask,         Button1,        spawn,          SHCMD("sync_private.sh") },
-	{ ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	//{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-	{ ClkTagBar,            0,              Button1,        view_click,           {0} },
-	{ ClkStatusText,            0,              Button2,        texthandler,           {0} },
-	//{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
-	//{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
-	//{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
+    /* click                event mask      button          function        argument */
+    //{ ClkLtSymbol,          0,              Button1,        setlayout,      {0} },
+    //{ ClkLtSymbol,          0,              Button3,        setlayout,      {.v = &layouts[2]} },
+    //{ ClkWinTitle,          0,              Button2,        zoom,           {0} },
+    { ClkStatusText,        0,              Button1,        spawn,          SHCMD("get_reminders.sh") },
+    { ClkStatusText,        MODKEY,         Button1,        spawn,          SHCMD("open_reminders.rem.sh") },
+    { ClkStatusText,        MODKEY | ShiftMask,         Button1,        spawn,          SHCMD("sync_private.sh") },
+    { ClkLtSymbol,          0,              Button3,        layoutmenu,     {0} },
+    { ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
+    //{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
+    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+    { ClkTagBar,            0,              Button1,        view_click,           {0} },
+    { ClkStatusText,        0,              Button2,        texthandler,           {0} },
+    //{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
+    //{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
+    //{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
 
