@@ -46,9 +46,9 @@ void nowarpkillclient(const Arg* arg) {
     killclient(arg);
     /*set warp_enabled = 1; in dwm.c:unmanage*/
 }
-void texthandler() {
+void faucet() {
     system("mkdir /tmp/dotfiles/");
-    system("setsid $XDG_CONFIG_HOME/dotfiles/dwm_texthandler.sh > /tmp/dotfiles/dwm_texthandler_debug.log 2>&1 &");
+    system("setsid $XDG_CONFIG_HOME/dotfiles/dwm_faucet.sh > /tmp/dotfiles/dwm_faucet_debug.log 2>&1 &");
 }
 
 static const char *tagsel[][2] = {
@@ -87,7 +87,7 @@ static const Rule rules[] = {
     { "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,        0,         -1,               -1,         -1 },
     { NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
 #ifdef DOTFILE_TAG_PC
-    { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         0,         -1,               +1,         +1 },
+    { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
     { "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
     { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 }, 
     { "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
@@ -96,7 +96,7 @@ static const Rule rules[] = {
     { "org.nicotine_plus.Nicotine",NULL,NULL,1 << 7,   0,          0,          0,         0,         -1,               +1,         +0 },
     { "Blender",NULL,NULL,                  TAG_3,     0,          0,          0,         0,         -1,               -1,         +0 },
     { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
-    { "dota",NULL,NULL,                     0,     0,          0,          0,         0,         -1,               -1,         +0 },
+    //{ "dota",NULL,NULL,                     0,     0,          0,          0,         0,         -1,               -1,         +0 },
     {  "bevy",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
     {  "bevy-noswallow",NULL, NULL,                  0,     0,          -1,            -1,         0,         -1,               -1,         +0 },
 #endif
@@ -170,6 +170,8 @@ static inline Bool ismaster(Client *c) {
     return False;
 }
 
+#include "movestack.c"
+static void attachstack(Client *c);
 Client *deckcyclechildclients() {
     Client **pc, *c, *first_child = NULL, *last_child = NULL;
     int n = 0, i;
@@ -182,11 +184,15 @@ Client *deckcyclechildclients() {
         return NULL;
     }
     c = nexttiled(selmon->clients);
-    for (i = 0; i < selmon->nmaster && c; c = nexttiled(c->next), i++); // Skip master clients
+    for (i = 0; i < selmon->nmaster && c; c = nexttiled(c->next), i++);
     first_child = c;
     if (!first_child)
         return NULL;
-    for (last_child = first_child; nexttiled(last_child->next); last_child = nexttiled(last_child->next));
+    
+    for (last_child = first_child; last_child && nexttiled(last_child->next); last_child = nexttiled(last_child->next));
+    
+    if (!last_child)
+        return NULL;
 
     pc = &selmon->clients;
     while (*pc && *pc != first_child)
@@ -202,14 +208,10 @@ Client *deckcyclechildclients() {
 
     return c;
 }
-
-#include "movestack.c"
-static void attachstack(Client *c);
 void deckcmd(const Arg *arg) {
     if (selmon->lt[selmon->sellt]->arrange != &deck) {
-        Arg arg;
-        arg.v = &layouts[4];
-        setlayout(&arg);
+        Arg layoutarg = {.v = &layouts[4]};
+        setlayout(&layoutarg);
     } else {
         int n;
         Client *c;
@@ -220,6 +222,7 @@ void deckcmd(const Arg *arg) {
         Bool bismaster = ismaster(selmon->sel);
         Client *oldfocus = selmon->sel;
         Client *newfocused = deckcyclechildclients();
+        if (!newfocused) return;
         detachstack(newfocused);
         attachstack(newfocused);
         if ( bismaster ) {
@@ -231,6 +234,7 @@ void deckcmd(const Arg *arg) {
         restack(selmon);
     }
 }
+
 
 
 
@@ -339,7 +343,7 @@ static const Button buttons[] = {
     //{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
     { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
     { ClkTagBar,            0,              Button1,        view_click,           {0} },
-    { ClkStatusText,        0,              Button2,        texthandler,           {0} },
+    { ClkStatusText,        0,              Button2,        faucet,           {0} },
     //{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
     //{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
     //{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
