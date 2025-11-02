@@ -219,6 +219,8 @@ void deckcmd(const Arg *arg) {
         int num_child_clients = n - (int)(selmon->nmaster);
         if (num_child_clients <= 1) {return;}
 
+        if (!selmon->sel) return;
+        
         Bool bismaster = ismaster(selmon->sel);
         Client *oldfocus = selmon->sel;
         Client *newfocused = deckcyclechildclients();
