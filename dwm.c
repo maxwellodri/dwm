@@ -1087,22 +1087,27 @@ void
 focusstack(const Arg *arg)
 {
 	Client *c = NULL, *i;
-
 	if ((!selmon->sel) || (selmon->sel->isfullscreen))
 		return;
-
 	if (selmon->lt[selmon->sellt]->arrange == &deck) {
 		Client *clients[32];
 		int count = 0;
 		int current_idx = -1;
 		
-		for (i = selmon->clients; i && count < selmon->nmaster + 1; i = i->next) {
-			if (ISVISIBLE(i) && !i->isfloating) {
-				clients[count] = i;
-				if (i == selmon->sel)
-					current_idx = count;
-				count++;
-			}
+		// Collect master windows
+		for (i = nexttiled(selmon->clients); i && count < selmon->nmaster; i = nexttiled(i->next)) {
+			clients[count] = i;
+			if (i == selmon->sel)
+				current_idx = count;
+			count++;
+		}
+		
+		// Add only the topmost deck window (first child after masters)
+		if (i) {
+			clients[count] = i;
+			if (i == selmon->sel)
+				current_idx = count;
+			count++;
 		}
 		
 		if (count == 0)
@@ -1132,7 +1137,6 @@ focusstack(const Arg *arg)
 						c = i;
 		}
 	}
-
 	if (c) {
 		focus(c);
 		Client *f;
