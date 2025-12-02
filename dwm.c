@@ -1339,17 +1339,32 @@ keypress(XEvent *e)
 void
 killclient(const Arg *arg)
 {
+	XClassHint ch = { NULL, NULL };
+	
 	if(!selmon->sel || selmon->sel->ispermanent > 0)
 		return;
-	//if (!sendevent(selmon->sel, wmatom[WMDelete])) {
-		XGrabServer(dpy);
-		XSetErrorHandler(xerrordummy);
-		XSetCloseDownMode(dpy, DestroyAll);
-		XKillClient(dpy, selmon->sel->win);
-		XSync(dpy, False);
-		XSetErrorHandler(xerror);
-		XUngrabServer(dpy);
-	//}
+	
+	// Get window class
+	if (XGetClassHint(dpy, selmon->sel->win, &ch)) {
+		// Whitelist: graceful close for Alacritty
+		if (ch.res_class && strcmp(ch.res_class, "Alacritty") == 0) {
+			sendevent(selmon->sel, wmatom[WMDelete]);
+			if (ch.res_class) XFree(ch.res_class);
+			if (ch.res_name) XFree(ch.res_name);
+			return;
+		}
+		if (ch.res_class) XFree(ch.res_class);
+		if (ch.res_name) XFree(ch.res_name);
+	}
+	
+	// Default: force kill
+	XGrabServer(dpy);
+	XSetErrorHandler(xerrordummy);
+	XSetCloseDownMode(dpy, DestroyAll);
+	XKillClient(dpy, selmon->sel->win);
+	XSync(dpy, False);
+	XSetErrorHandler(xerror);
+	XUngrabServer(dpy);
 }
 
 void

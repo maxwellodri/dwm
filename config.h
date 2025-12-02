@@ -84,7 +84,9 @@ static const Rule rules[] = {
     { "firefox","Toolkit",  "Picture-in-Picture",0,     0,          0,          -1,        1,         +1,               -1,         -1 },
     { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,               -1,         -1 },
     { "St",      NULL,      NULL,           0,          0,          1,          +0,        0,         -1,               -1,         -1 },
+    { "Alacritty",NULL,      NULL,           0,          0,          0,          +0,        0,         -1,               -1,         -1 },
     { "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,        0,         -1,               -1,         -1 },
+    { "mpv",      NULL,      NULL,           0,          0,          0,          0,         0,         -1,               -1,         -1 },
     { NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
 #ifdef DOTFILE_TAG_PC
     { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
@@ -97,6 +99,7 @@ static const Rule rules[] = {
     { "Blender",NULL,NULL,                  TAG_3,     0,          0,          0,         0,         -1,               -1,         +0 },
     { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
     //{ "dota",NULL,NULL,                     0,     0,          0,          0,         0,         -1,               -1,         +0 },
+    {  "bevy",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
     {  "bevy",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
     {  "mykaelium",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
     {  "bevy-noswallow",NULL, NULL,                  0,     0,          -1,            -1,         0,         -1,               -1,         +0 },
@@ -255,7 +258,7 @@ void deckcmd(const Arg *arg) {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "alacritty", NULL };
 static const char *layoutmenu_cmd = "layoutmenu.sh";
 
 static const Key keys[] = {
