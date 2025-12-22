@@ -91,10 +91,10 @@ static const Rule rules[] = {
 #ifdef DOTFILE_TAG_PC
     { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
     { "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
-    { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 }, 
+    { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
     { "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
-    { "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 }, 
-    { "org.mozilla.Thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         0,         -1,               -1,         +1 }, 
+    { "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
+    { "org.mozilla.Thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         0,         -1,               -1,         +1 },
     { "org.nicotine_plus.Nicotine",NULL,NULL,1 << 7,   0,          0,          0,         0,         -1,               +1,         +0 },
     { "Blender",NULL,NULL,                  TAG_3,     0,          0,          0,         0,         -1,               -1,         +0 },
     { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
@@ -127,11 +127,11 @@ void debug(const Arg *arg) {
         m->sellt;
         char command[256];
         if (m == selmon) {
-            snprintf(command, sizeof(command), "notify-send -t 1000 'Current Monitor %d: nmaster: %d'", i, j); 
+            snprintf(command, sizeof(command), "notify-send -t 1000 'Current Monitor %d: nmaster: %d'", i, j);
         } else {
-            snprintf(command, sizeof(command), "notify-send -t 1000 'Other Monitor %d: nmaster: %d'", i, j); 
+            snprintf(command, sizeof(command), "notify-send -t 1000 'Other Monitor %d: nmaster: %d'", i, j);
         }
-        system(command); 
+        system(command);
         i++;
     }
 }
@@ -192,9 +192,9 @@ Client *deckcyclechildclients() {
     first_child = c;
     if (!first_child)
         return NULL;
-    
+
     for (last_child = first_child; last_child && nexttiled(last_child->next); last_child = nexttiled(last_child->next));
-    
+
     if (!last_child)
         return NULL;
 
@@ -203,9 +203,9 @@ Client *deckcyclechildclients() {
         pc = &(*pc)->next;
 
     if (*pc == first_child) {
-        *pc = first_child->next;          
-        last_child->next = first_child;   
-        first_child->next = NULL;         
+        *pc = first_child->next;
+        last_child->next = first_child;
+        first_child->next = NULL;
     }
     c = nexttiled(selmon->clients);
     for (i = 0; i < selmon->nmaster && c; c = nexttiled(c->next), i++);
@@ -224,7 +224,7 @@ void deckcmd(const Arg *arg) {
         if (num_child_clients <= 1) {return;}
 
         if (!selmon->sel) return;
-        
+
         Bool bismaster = ismaster(selmon->sel);
         Client *oldfocus = selmon->sel;
         Client *newfocused = deckcyclechildclients();
@@ -308,7 +308,7 @@ static const Key keys[] = {
                                                                                      //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[8]} }, //nrowgrid
                                                                                      //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[9]} }, //horizgrid
                                                                                      //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[10]} }, //gaplessgrid
-    { MODKEY,                       XK_f,      open_project,       {0}}, 
+    { MODKEY,                       XK_f,      open_project,       {0}},
     { MODKEY|ShiftMask,                       XK_f,      setlayout,      {.v = &layouts[11]} }, //centeredmaster
     { MODKEY|ShiftMask|ControlMask,             XK_f,      setlayout,      {.v = &layouts[12]} }, //centeredfloatingmaster
                                                                                       //{ MODKEY,                       ?,      setlayout,      {.v = &layouts[13]} }, //All floating

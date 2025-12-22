@@ -274,7 +274,7 @@ static Client *termforwin(const Client *c);
 static pid_t winpid(Window w);
 
 /* variables */
-static const char broken[] = "broken";
+static const char broken[] = "sussy";
 static char stext[256];
 static int screen;
 static int sw, sh;           /* X display screen geometry width, height */
@@ -534,7 +534,7 @@ attachbelow(Client *c)
 	c->next = c->mon->sel->next;
 	c->mon->sel->next = c;
 }
- 
+
 void
 attachbottom(Client *c)
 {
@@ -650,7 +650,7 @@ buttonpress(XEvent *e)
             if (i < LENGTH(tags)) {
                 click = ClkTagBar;
                 arg.ui = 1 << i;
-            } 
+            }
             else if (ev->x > selmon->ww - (int)TEXTW(stext))
                 click = ClkStatusText;
             else
@@ -1093,7 +1093,7 @@ focusstack(const Arg *arg)
 		Client *clients[32];
 		int count = 0;
 		int current_idx = -1;
-		
+
 		// Collect master windows
 		for (i = nexttiled(selmon->clients); i && count < selmon->nmaster; i = nexttiled(i->next)) {
 			clients[count] = i;
@@ -1101,7 +1101,7 @@ focusstack(const Arg *arg)
 				current_idx = count;
 			count++;
 		}
-		
+
 		// Add only the topmost deck window (first child after masters)
 		if (i) {
 			clients[count] = i;
@@ -1109,10 +1109,10 @@ focusstack(const Arg *arg)
 				current_idx = count;
 			count++;
 		}
-		
+
 		if (count == 0)
 			return;
-			
+
 		if (current_idx == -1) {
 			c = clients[0];
 		} else {
@@ -1287,7 +1287,7 @@ incnmaster(const Arg *arg)
         if(ISVISIBLE(c))
             num_clients++;
     }
-    selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] = 
+    selmon->nmaster = selmon->pertag->nmasters[selmon->pertag->curtag] =
         MAX(0, MIN(selmon->nmaster + arg->i, num_clients + 1));
 
     arrange(selmon);
@@ -1304,7 +1304,7 @@ static int is_visible(Client *C) {
     } else if ( C->mon->lt[C->mon->sellt]->arrange == &monocle) {
 
 
-    } 
+    }
     return original;
 }
 
@@ -1340,10 +1340,10 @@ void
 killclient(const Arg *arg)
 {
 	XClassHint ch = { NULL, NULL };
-	
+
 	if(!selmon->sel || selmon->sel->ispermanent > 0)
 		return;
-	
+
 	// Get window class
 	if (XGetClassHint(dpy, selmon->sel->win, &ch)) {
 		// Whitelist: graceful close for Alacritty
@@ -1356,7 +1356,7 @@ killclient(const Arg *arg)
 		if (ch.res_class) XFree(ch.res_class);
 		if (ch.res_name) XFree(ch.res_name);
 	}
-	
+
 	// Default: force kill
 	XGrabServer(dpy);
 	XSetErrorHandler(xerrordummy);
@@ -2154,12 +2154,12 @@ togglefloating(const Arg *arg)
 		return;
 	if (selmon->sel->isfullscreen)
 		return;
-	
+
 	if (!selmon->sel->isfloating) {
 		int neww = selmon->sel->w / 2;
 		int newh = selmon->sel->h / 2;
 		int newx, newy;
-		
+
 		if (selmon->lt[selmon->sellt]->arrange == &deck) {
 			newx = selmon->mx + selmon->mw - neww - selmon->gappoh;
 			newy = selmon->my + selmon->mh - newh - selmon->gappov;
@@ -2167,7 +2167,7 @@ togglefloating(const Arg *arg)
 			newx = selmon->mx + (selmon->mw - neww) / 2;
 			newy = selmon->my + (selmon->mh - newh) / 2;
 		}
-		
+
 		selmon->sel->isfloating = 1;
 		resize(selmon->sel, newx, newy, neww, newh, 0);
 		XRaiseWindow(dpy, selmon->sel->win);
