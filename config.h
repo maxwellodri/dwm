@@ -85,7 +85,9 @@ static const Rule rules[] = {
     { "nvide_daemon", NULL, NULL,           0,          0,          1,          -1,        0,         -1,               -1,         -1 },
     { "St",      NULL,      NULL,           0,          0,          1,          +0,        0,         -1,               -1,         -1 },
     { "Alacritty",NULL,      NULL,           0,          0,          0,          +0,        0,         -1,               -1,         -1 },
+    { "org.wezfurlong.wezterm",NULL,      NULL,           0,          0,          1,          +0,        0,         -1,               -1,         -1 },
     { "stfuzzy", NULL,      NULL,           0,          1,          1,          +0,        0,         -1,               -1,         -1 },
+    { "wezfuzzy", NULL,      NULL,           0,          1,          1,          +0,        0,         -1,               -1,         -1 },
     { "mpv",      NULL,      NULL,           0,          0,          0,          0,         0,         -1,               -1,         -1 },
     { NULL,      NULL,      "Event Tester", 0,          0,          0,          -1,        0,         -1,               -1,         -1 }, /* xev */
 #ifdef DOTFILE_TAG_PC
@@ -100,8 +102,7 @@ static const Rule rules[] = {
     { "Godot",NULL,NULL,                  TAG_1,     0,          0,          0,         0,         -1,               -1,         +0 },
     //{ "dota",NULL,NULL,                     0,     0,          0,          0,         0,         -1,               -1,         +0 },
     {  "bevy",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
-    {  "bevy",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
-    {  "mykaelium",NULL, NULL,                  0,     0,          0,            0,         0,         -1,               -1,         +0 },
+    {NULL,NULL, "Mykaelium",                  TAG_1,     0,          0,            0,         0,         -1,               -1,         +0 },
     {  "bevy-noswallow",NULL, NULL,                  0,     0,          -1,            -1,         0,         -1,               -1,         +0 },
 #endif
 

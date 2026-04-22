@@ -1347,7 +1347,7 @@ killclient(const Arg *arg)
 	// Get window class
 	if (XGetClassHint(dpy, selmon->sel->win, &ch)) {
 		// Whitelist: graceful close for Alacritty
-		if (ch.res_class && strcmp(ch.res_class, "Alacritty") == 0) {
+		if (ch.res_class && (strcmp(ch.res_class, "Alacritty") == 0 || strcmp(ch.res_class, "org.wezfurlong.wezterm") == 0)) {
 			sendevent(selmon->sel, wmatom[WMDelete]);
 			if (ch.res_class) XFree(ch.res_class);
 			if (ch.res_name) XFree(ch.res_name);
@@ -2639,6 +2639,28 @@ winpid(Window w)
 
 #endif /* __OpenBSD__ */
 	return result;
+}
+
+static char *
+getprocenv(pid_t pid, const char *var)
+{
+	FILE *f;
+	char path[256], buf[4096], *s, *val = NULL;
+	size_t len, n;
+	snprintf(path, sizeof(path), "/proc/%u/environ", (unsigned)pid);
+	if (!(f = fopen(path, "r")))
+		return NULL;
+	n = fread(buf, 1, sizeof(buf) - 1, f);
+	fclose(f);
+	buf[n] = '\0';
+	len = strlen(var);
+	for (s = buf; s < buf + n; s += strlen(s) + 1) {
+		if (strncmp(s, var, len) == 0 && s[len] == '=') {
+			val = s + len + 1;
+			break;
+		}
+	}
+	return val ? strdup(val) : NULL;
 }
 
 pid_t
