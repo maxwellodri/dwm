@@ -93,7 +93,7 @@ static const Rule rules[] = {
 #ifdef DOTFILE_TAG_PC
     { "steam",   NULL,      "Steam",		1 << 1,     0,          0,          1,         1,         -1,               +1,         +1 },
     { "discord", NULL,	    "Discord",      1 << 3,     0,          0,          0,         0,         -1,               -1,         +1 },
-    { "Signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
+    { "signal",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
     { "Spotify", NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
     { "zenity",  NULL,      NULL,           1 << 0,     0,          0,          0,         0,         -1,               -1,         +1 },
     { "org.mozilla.Thunderbird", NULL,  NULL,           1 << 2,     0,          0,          0,         0,         -1,               -1,         +1 },
