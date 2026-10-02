@@ -107,6 +107,11 @@ static const Rule rules[] = {
     {  "bevy-noswallow",NULL, NULL,                  0,     0,          -1,            -1,         0,         -1,               -1,         +0 },
     { "Qemu-system-x86_64", NULL, NULL,             0,     0,          0,            1,         0,         -1,               -1,         -1 },
     { "Remote-viewer", NULL, NULL,                  0,     0,          0,            1,         0,         -1,               -1,         -1 },
+    { "steam_app_0", NULL, "Battle.net",   1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
+    { "steam_app_0", NULL, "Warcraft III", 1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
+    { "steam_app_0", NULL, "Overwatch",    1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
+    { "steam_app_0", NULL, NULL,            1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
+    { "Lutris",      NULL, NULL,            1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
 #endif
 
 };
