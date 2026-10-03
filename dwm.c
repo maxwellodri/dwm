@@ -1391,6 +1391,29 @@ layoutmenu(const Arg *arg) {
  * launchers export them so whole process trees (e.g. wine windows that never
  * set WM_CLASS) land on a chosen tag+monitor; applies only when no rule
  * matched so it composes with rules[] */
+static pid_t
+forcepid(Window w)
+{
+	Window root, parent, *children = NULL;
+	unsigned int n;
+	pid_t p = winpid(w);
+
+	/* DXVK swapchain windows live on the game's own X connection, where the
+	 * XCB-RES pid lookup can come back empty; they are parented under a wine
+	 * window whose pid resolves, so climb the X tree */
+	for (int i = 0; p <= 0 && i < 8; i++) {
+		if (!XQueryTree(dpy, w, &root, &parent, &children, &n))
+			break;
+		if (children)
+			XFree(children);
+		if (!parent || parent == root)
+			break;
+		w = parent;
+		p = winpid(w);
+	}
+	return p;
+}
+
 void
 applyforceenv(Client *c)
 {
@@ -1400,11 +1423,12 @@ applyforceenv(Client *c)
 	int tag = 0, mon = -1, v;
 	Monitor *m;
 
-	if (!c->pid)
+	pid_t pid = forcepid(c->win);
+	if (pid <= 0)
 		return;
 	/* self-contained environ read: getprocenv()'s 4K buffer truncates large
 	 * environments (launcher-exported vars sit at the tail) */
-	snprintf(path, sizeof(path), "/proc/%d/environ", (int)c->pid);
+	snprintf(path, sizeof(path), "/proc/%d/environ", (int)pid);
 	if (!(f = fopen(path, "r")))
 		return;
 	n = fread(envbuf, 1, sizeof(envbuf) - 1, f);
