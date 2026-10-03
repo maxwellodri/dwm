@@ -108,6 +108,7 @@ static const Rule rules[] = {
     { "Qemu-system-x86_64", NULL, NULL,             0,     0,          0,            1,         0,         -1,               -1,         -1 },
     { "Remote-viewer", NULL, NULL,                  0,     0,          0,            1,         0,         -1,               -1,         -1 },
     { "Xephyr",      NULL, NULL,                  1 << 7,     0,          0,          0,         0,         -1,               +1,         +0 },
+    { "gamescope",   NULL, NULL,                  1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
     /* battle.net wine prefix: WM_CLASS varies by launch path (umu -> steam_app_0,
      * plain proton wine -> steam_proton) — WM_NAME is the stable key; class-only
      * catch-alls sweep the empty-title toolbar/splash windows */

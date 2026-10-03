@@ -1349,8 +1349,20 @@ killclient(const Arg *arg)
 
 	// Get window class
 	if (XGetClassHint(dpy, selmon->sel->win, &ch)) {
-		// Whitelist: graceful close for Alacritty
-		if (ch.res_class && (strcmp(ch.res_class, "Alacritty") == 0 || strcmp(ch.res_class, "org.wezfurlong.wezterm") == 0)) {
+		if (ch.res_class && strcmp(ch.res_class, "gamescope") == 0) {
+			// title mirrors the nested app — kill the game process, keep
+			// gamescope + bnet alive (closing the window kills the whole tree)
+			if (strstr(selmon->sel->name, "Overwatch")) {
+				Arg a = { .v = (const char *[]){ "sh", "-c", "pkill -f Overwatch.exe", NULL } };
+				spawn(&a);
+				if (ch.res_class) XFree(ch.res_class);
+				if (ch.res_name) XFree(ch.res_name);
+				return;
+			}
+		}
+		// Whitelist: graceful close — WM_DELETE lets the app tear itself down
+		// (gamescope/wine trees exit cleanly instead of being X-killed)
+		if (ch.res_class && (strcmp(ch.res_class, "Alacritty") == 0 || strcmp(ch.res_class, "org.wezfurlong.wezterm") == 0 || strcmp(ch.res_class, "gamescope") == 0 || strcmp(ch.res_class, "steam_proton") == 0)) {
 			sendevent(selmon->sel, wmatom[WMDelete]);
 			if (ch.res_class) XFree(ch.res_class);
 			if (ch.res_name) XFree(ch.res_name);
