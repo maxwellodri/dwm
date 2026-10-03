@@ -208,6 +208,7 @@ static int is_visible(Client *C);
 static void keypress(XEvent *e);
 static void killclient(const Arg *arg);
 static void layoutmenu(const Arg *arg);
+static void applyforceenv(Client *c);
 static void manage(Window w, XWindowAttributes *wa);
 static void mappingnotify(XEvent *e);
 static void maprequest(XEvent *e);
@@ -267,6 +268,7 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 
+static char *getprocenv(pid_t pid, const char *var);
 static pid_t getparentprocess(pid_t p);
 static int isdescprocess(pid_t p, pid_t c);
 static Client *swallowingclient(Window w);
@@ -385,6 +387,7 @@ applyrules(Client *c)
 		XFree(ch.res_class);
 	if (ch.res_name)
 		XFree(ch.res_name);
+	applyforceenv(c); /* env-forced tags join rule tags before the fallback */
 	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
 }
 
@@ -1382,6 +1385,45 @@ layoutmenu(const Arg *arg) {
 		 return;
     i = atoi(c);
 	setlayout(&((Arg) { .v = &layouts[i] }));
+}
+
+/* DWM_FORCE_TAG / DWM_FORCE_MONITOR from the client's process environment:
+ * launchers export them so whole process trees (e.g. wine windows that never
+ * set WM_CLASS) land on a chosen tag+monitor; applies only when no rule
+ * matched so it composes with rules[] */
+void
+applyforceenv(Client *c)
+{
+	char envbuf[65536], path[64], *s, *val;
+	FILE *f;
+	size_t n;
+	int tag = 0, mon = -1, v;
+	Monitor *m;
+
+	if (!c->pid)
+		return;
+	/* self-contained environ read: getprocenv()'s 4K buffer truncates large
+	 * environments (launcher-exported vars sit at the tail) */
+	snprintf(path, sizeof(path), "/proc/%d/environ", (int)c->pid);
+	if (!(f = fopen(path, "r")))
+		return;
+	n = fread(envbuf, 1, sizeof(envbuf) - 1, f);
+	fclose(f);
+	for (s = envbuf; s < envbuf + n; s += strlen(s) + 1) {
+		if (sscanf(s, "DWM_FORCE_TAG=%d", &v) == 1)
+			tag = v;
+		else if (sscanf(s, "DWM_FORCE_MONITOR=%d", &v) == 1)
+			mon = v;
+	}
+	if (tag >= 1 && tag <= (int)LENGTH(tags))
+		c->tags = 1 << (tag - 1); /* override rules[]: launcher knows best */
+	if (mon >= 0) {
+		for (m = mons; m; m = m->next)
+			if (m->num == (unsigned)mon) {
+				c->mon = m;
+				break;
+			}
+	}
 }
 
 void
