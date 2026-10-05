@@ -1360,6 +1360,15 @@ killclient(const Arg *arg)
 				return;
 			}
 		}
+		// wine/proton game trees zombie when X-killed — pkill by process name
+		// instead; WM_CLASS varies by launch path, WM_NAME is the stable key
+		if (strstr(selmon->sel->name, "Warcraft III")) {
+			Arg a = { .v = (const char *[]){ "sh", "-c", "pkill -f 'Warcraft III.exe'", NULL } };
+			spawn(&a);
+			if (ch.res_class) XFree(ch.res_class);
+			if (ch.res_name) XFree(ch.res_name);
+			return;
+		}
 		// Whitelist: graceful close — WM_DELETE lets the app tear itself down
 		// (gamescope/wine trees exit cleanly instead of being X-killed)
 		if (ch.res_class && (strcmp(ch.res_class, "Alacritty") == 0 || strcmp(ch.res_class, "org.wezfurlong.wezterm") == 0 || strcmp(ch.res_class, "gamescope") == 0 || strcmp(ch.res_class, "steam_proton") == 0)) {
