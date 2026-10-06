@@ -219,8 +219,8 @@ Client *deckcyclechildclients() {
 
     if (*pc == first_child) {
         *pc = first_child->next;
+        first_child->next = last_child->next;
         last_child->next = first_child;
-        first_child->next = NULL;
     }
     c = nexttiled(selmon->clients);
     for (i = 0; i < selmon->nmaster && c; c = nexttiled(c->next), i++);
