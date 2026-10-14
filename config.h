@@ -119,6 +119,9 @@ static const Rule rules[] = {
     { "steam_proton", NULL, NULL,           1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
     { "Lutris",      NULL, NULL,            1 << 4,     0,          0,          0,         0,         -1,               +1,         +0 },
 #endif
+#ifdef DOTFILE_TAG_HACKERMAN
+    { "Chromium",   NULL, NULL,            TAG_8,      0,          0,          1,         0,         -1,               +1,         -1 },
+#endif
 
 };
 
